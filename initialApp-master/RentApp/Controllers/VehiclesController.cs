@@ -8,53 +8,56 @@ using RepoDemo.Persistance.UnitOfWork;
 
 namespace RentApp.Controllers
 {
-    public class ServicesController : ApiController
+    public class VehiclesController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public ServicesController(IUnitOfWork unitOfWork)
+        public VehiclesController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Service> GetServices()
+        // GET: api/Vehicles
+        public IEnumerable<Vehicle> GetVehicles()
         {
-            return unitOfWork.Services.GetAll();
+            return unitOfWork.Vehicles.GetAll();
         }
 
-        [ResponseType(typeof(Service))]
-        public IHttpActionResult GetService(int id)
+        // GET: api/Vehicles/5
+        [ResponseType(typeof(Vehicle))]
+        public IHttpActionResult GetVehicle(int id)
         {
-            Service service = unitOfWork.Services.Get(id);
-            if (service == null)
+            Vehicle vehicle = unitOfWork.Vehicles.Get(id);
+            if (vehicle == null)
             {
                 return NotFound();
             }
 
-            return Ok(service);
+            return Ok(vehicle);
         }
 
+        // PUT: api/Vehicles/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutService(int id, Service service)
+        public IHttpActionResult PutVehicle(int id, Vehicle vehicle)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != service.Id)
+            if (id != vehicle.Id)
             {
                 return BadRequest();
             }
 
             try
             {
-                unitOfWork.Services.Update(service);
+                unitOfWork.Vehicles.Update(vehicle);
                 unitOfWork.Complete();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ServiceExists(id))
+                if (!VehicleExists(id))
                 {
                     return NotFound();
                 }
@@ -67,38 +70,40 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [ResponseType(typeof(Service))]
-        public IHttpActionResult PostService(Service service)
+        // POST: api/Vehicles
+        [ResponseType(typeof(Vehicle))]
+        public IHttpActionResult PostVehicle(Vehicle vehicle)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            unitOfWork.Services.Add(service);
+            unitOfWork.Vehicles.Add(vehicle);
             unitOfWork.Complete();
 
-            return CreatedAtRoute("DefaultApi", new { id = service.Id }, service);
+            return CreatedAtRoute("DefaultApi", new { id = vehicle.Id }, vehicle);
         }
 
-        [ResponseType(typeof(Service))]
-        public IHttpActionResult DeleteService(int id)
+        // DELETE: api/Vehicles/5
+        [ResponseType(typeof(Vehicle))]
+        public IHttpActionResult DeleteVehicle(int id)
         {
-            Service service = unitOfWork.Services.Get(id);
-            if (service == null)
+            Vehicle vehicle = unitOfWork.Vehicles.Get(id);
+            if (vehicle == null)
             {
                 return NotFound();
             }
 
-            unitOfWork.Services.Remove(service);
+            unitOfWork.Vehicles.Remove(vehicle);
             unitOfWork.Complete();
 
-            return Ok(service);
+            return Ok(vehicle);
         }
 
-        private bool ServiceExists(int id)
+        private bool VehicleExists(int id)
         {
-            return unitOfWork.Services.Get(id) != null;
+            return unitOfWork.Vehicles.Get(id) != null;
         }
     }
 }

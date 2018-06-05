@@ -6,6 +6,7 @@ using RentApp.Persistance;
 using RentApp.Providers;
 using System;
 using System.Data.Entity;
+using System.Web.Http;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Injection;
@@ -55,6 +56,8 @@ namespace RentApp
             container.RegisterType<ISecureDataFormat<AuthenticationTicket>, CustomJwtFormat>(new InjectionConstructor("http://localhost:51680"));
             container.RegisterType<IUserStore<RAIdentityUser>, UserStore<RAIdentityUser>>(
             new InjectionConstructor(typeof(DbContext)));
+
+            //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
 }
