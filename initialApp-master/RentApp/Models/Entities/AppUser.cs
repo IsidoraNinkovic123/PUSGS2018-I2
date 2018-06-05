@@ -14,6 +14,6 @@ namespace RentApp.Models.Entities
         public string PersonalDocument { get; set; }
         public bool Activated { get; set; }
 
-        public List<Rent> Rents { get; set; }
+        public virtual List<Rent> Rents { get; set; }
     }
 }

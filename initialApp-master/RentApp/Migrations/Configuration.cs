@@ -2,11 +2,15 @@ namespace RentApp.Migrations
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
     using RentApp.Models.Entities;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Data.Entity.Validation;
     using System.Linq;
+    using System.Text;
 
     internal sealed class Configuration : DbMigrationsConfiguration<RentApp.Persistance.RADBContext>
     {
@@ -14,6 +18,14 @@ namespace RentApp.Migrations
         {
             AutomaticMigrationsEnabled = false;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// 
+       
+
 
         protected override void Seed(RentApp.Persistance.RADBContext context)
         {
@@ -72,7 +84,31 @@ namespace RentApp.Migrations
 
             );
 
-            context.SaveChanges();
+            //novi entiteti
+            var T1 = new TypeOfVehicle() { Name = "Limuzina" };
+            var s1 = new Service() { Name = "Service1", Description = "First Service", Email = "service1@yahoo.com", Logo = "" };           
+            var V1 = new Vehicle() { Model = "A1", Manufactor = "Audi", Year = new DateTime(2018, 1, 1), Description = "First vehicle", PricePerHour = 100, Unvailable = false };
+            V1.Type = T1;
+            var b1 = new Branch() { Address = "Bulevar Oslobodjenja 2", Logo = "", Latitude = 1, Longitude = 2 };
+            var R1 = new Rent() { Start = new DateTime(2018, 3, 4), End = new DateTime(2018, 3, 11) };
+
+            R1.Branch = b1;
+            R1.Vehicle = V1;
+
+            s1.Branches = new List<Branch>();
+            s1.Branches.Add(b1);
+            s1.Vehicles = new List<Vehicle>();
+            s1.Vehicles.Add(V1);  
+                  
+            context.Services.AddOrUpdate(s1);
+            context.Branches.AddOrUpdate(b1);
+            context.TypeOfVehicles.AddOrUpdate(T1);
+            context.Vehicles.AddOrUpdate(V1);
+            context.Rents.AddOrUpdate(R1);
+
+
+
+            SaveChanges(context);
 
             var userStore = new UserStore<RAIdentityUser>(context);
             var userManager = new UserManager<RAIdentityUser>(userStore);
@@ -94,6 +130,32 @@ namespace RentApp.Migrations
                 userManager.Create(user);
                 userManager.AddToRole(user.Id, "AppUser");
 
+            }
+        }
+
+
+        private static void SaveChanges(DbContext context)
+        {
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var sb = new StringBuilder();
+                foreach (var failure in ex.EntityValidationErrors)
+                {
+                    sb.AppendFormat("{0} failed validation\n", failure.Entry.Entity.GetType());
+                    foreach (var error in failure.ValidationErrors)
+                    {
+                        sb.AppendFormat("- {0} : {1}", error.PropertyName, error.ErrorMessage);
+                        sb.AppendLine();
+                    }
+                }
+                throw new DbEntityValidationException(
+                    "Entity Validation Failed - errors follow:\n" +
+                    sb.ToString(), ex
+                );
             }
         }
     }

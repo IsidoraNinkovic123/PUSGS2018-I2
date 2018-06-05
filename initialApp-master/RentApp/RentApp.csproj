@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201806041040388_updated Rent.Designer.cs">
       <DependentUpon>201806041040388_updated Rent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806050654198_Strani kljuc izmena.cs" />
+    <Compile Include="Migrations\201806050654198_Strani kljuc izmena.Designer.cs">
+      <DependentUpon>201806050654198_Strani kljuc izmena.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -289,7 +293,7 @@
     <Compile Include="Models\Entities\Services.cs" />
     <Compile Include="Models\Entities\TypeOfVehicle.cs" />
     <Compile Include="Models\Entities\Vehicle.cs" />
-    <Compile Include="Models\Rent.cs" />
+    <Compile Include="Models\Entities\Rent.cs" />
     <Compile Include="Persistance\RADBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -380,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806041040388_updated Rent.resx">
       <DependentUpon>201806041040388_updated Rent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806050654198_Strani kljuc izmena.resx">
+      <DependentUpon>201806050654198_Strani kljuc izmena.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
