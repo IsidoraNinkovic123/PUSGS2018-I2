@@ -5,16 +5,21 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RepoDemo.Persistance.UnitOfWork;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity;
 
 namespace RentApp.Controllers
 {
     public class ServicesController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
+        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        public ServicesController(IUnitOfWork unitOfWork)
+        public ServicesController(IUnitOfWork unitOfWork, ApplicationUserManager userManager,
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             this.unitOfWork = unitOfWork;
+            AccessTokenFormat = accessTokenFormat;
         }
 
         public IEnumerable<Service> GetServices()
@@ -22,6 +27,7 @@ namespace RentApp.Controllers
             return unitOfWork.Services.GetAll();
         }
 
+       // [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [ResponseType(typeof(Service))]
         public IHttpActionResult GetService(int id)
         {

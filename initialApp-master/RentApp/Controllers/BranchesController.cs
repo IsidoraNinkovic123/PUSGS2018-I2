@@ -5,6 +5,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RepoDemo.Persistance.UnitOfWork;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity;
 
 namespace RentApp.Controllers
 {
@@ -12,9 +14,12 @@ namespace RentApp.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public BranchesController(IUnitOfWork unitOfWork)
+        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+        public BranchesController(IUnitOfWork unitOfWork, ApplicationUserManager userManager,
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             this.unitOfWork = unitOfWork;
+            AccessTokenFormat = accessTokenFormat;
         }
 
         // GET: api/Branches
@@ -24,6 +29,7 @@ namespace RentApp.Controllers
         }
 
         // GET: api/Branches/5
+       // [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [ResponseType(typeof(Branch))]
         public IHttpActionResult GetBranch(int id)
         {

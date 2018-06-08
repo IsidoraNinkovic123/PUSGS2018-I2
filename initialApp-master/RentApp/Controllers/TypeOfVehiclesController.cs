@@ -5,16 +5,21 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RepoDemo.Persistance.UnitOfWork;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity;
 
 namespace RentApp.Controllers
 {
     public class TypeOfVehiclesController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
+        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        public TypeOfVehiclesController(IUnitOfWork unitOfWork)
+        public TypeOfVehiclesController(IUnitOfWork unitOfWork, ApplicationUserManager userManager,
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             this.unitOfWork = unitOfWork;
+            AccessTokenFormat = accessTokenFormat;
         }
 
         // GET: api/TypeOfVehicles
@@ -24,6 +29,7 @@ namespace RentApp.Controllers
         }
 
         // GET: api/TypeOfVehicles/5
+        //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [ResponseType(typeof(TypeOfVehicle))]
         public IHttpActionResult GetTypeOfVehicle(int id)
         {

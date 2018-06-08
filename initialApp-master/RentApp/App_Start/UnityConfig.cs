@@ -3,13 +3,16 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
+using RentApp.Persistance.Repository;
 using RentApp.Providers;
+using RepoDemo.Persistance.UnitOfWork;
 using System;
 using System.Data.Entity;
 using System.Web.Http;
 using Unity;
-using Unity.AspNet.Mvc;
+using Unity.AspNet.WebApi;
 using Unity.Injection;
+using Unity.Lifetime;
 
 namespace RentApp
 {
@@ -51,13 +54,19 @@ namespace RentApp
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<DbContext, RADBContext>(new PerRequestLifetimeManager());
+            container.RegisterType<DbContext, RADBContext>(new HierarchicalLifetimeManager());
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<ISecureDataFormat<AuthenticationTicket>, CustomJwtFormat>(new InjectionConstructor("http://localhost:51680"));
-            container.RegisterType<IUserStore<RAIdentityUser>, UserStore<RAIdentityUser>>(
-            new InjectionConstructor(typeof(DbContext)));
+            container.RegisterType<IUserStore<RAIdentityUser>, UserStore<RAIdentityUser>>(new InjectionConstructor(typeof(DbContext)));
+            container.RegisterType<IServiceRepository, ServiceRepository>();
+            container.RegisterType<IAppUserRepository, AppUserRepository>();
+            container.RegisterType<IBranchRepository, BranchRepository>();
+            container.RegisterType<IRentRepository, RentRepository>();
+            container.RegisterType<ITypeOfVehicleRepository, TypeOfVehicleRepository>();
+            container.RegisterType<IVehicleRepository, VehicleRepository>();
+            container.RegisterType<IUnitOfWork, DemoUnitOfWork>();
 
-            //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
 }

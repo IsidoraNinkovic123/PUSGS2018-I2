@@ -100,11 +100,11 @@ namespace RentApp.Migrations
             s1.Vehicles = new List<Vehicle>();
             s1.Vehicles.Add(V1);  
                   
-            context.Services.AddOrUpdate(s1);
-            context.Branches.AddOrUpdate(b1);
-            context.TypeOfVehicles.AddOrUpdate(T1);
-            context.Vehicles.AddOrUpdate(V1);
-            context.Rents.AddOrUpdate(R1);
+            context.Services.AddOrUpdate(p => p.Name,s1);
+            context.Branches.AddOrUpdate(p => p.Address,b1);
+            context.TypeOfVehicles.AddOrUpdate(p => p.Name,T1);
+            context.Vehicles.AddOrUpdate(p => p.Model,V1);
+            context.Rents.AddOrUpdate(p => p.Id,R1);
 
 
 

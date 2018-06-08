@@ -48,6 +48,22 @@ namespace RentApp.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //polja AppUser-a
+        [Required]
+        [Display(Name = "FullName")]
+        public string FullName { get; set; }
+
+        [Required]
+        [Display(Name = "Birthday")]
+        public DateTime? Birthday { get; set; }
+
+        [Display(Name = "PersonalDocument")]
+        public string PersonalDocument { get; set; }
+
+        [Required]
+        [Display(Name = "Activated")]
+        public bool Activated { get; set; }
     }
 
     public class RegisterExternalBindingModel
