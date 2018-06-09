@@ -1,0 +1,14 @@
+<div class="col-md-8">
+  <h1>Log in</h1>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove">
+    <div class="form-group">
+      <div class="col-sm"><label for="Email">Email</label></div>
+      <div class="col-sm"><input type="text" name="Email" ngModel></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm"><label for="Password">Password</label></div>
+      <div class="col-sm"><input type="password" name="Password" ngModel></div>
+    </div>
+    <input type="submit"class="btn btn-dark" value="Add">
+  </form>
+</div> 

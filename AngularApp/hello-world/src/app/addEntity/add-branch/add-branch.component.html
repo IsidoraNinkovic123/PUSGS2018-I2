@@ -1,0 +1,23 @@
+<div class="col-md-8">
+    <h1>Add branch</h1>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove">
+      <div class="form-group">
+        <label for="Logo">Logo</label>
+        <input type="file" (change)="fileChange($event)" placeholder="Upload file" name="Logo" ngModel>
+      </div>
+      <div class="form-group">
+        <div class="col-sm"><label for="Address">Address</label></div>
+        <div class="col-sm"><input type="text" name="Address" ngModel></div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm"><label for="Latitude">Latitude</label></div>
+        <div class="col-sm"><input type="number" name="Latitude" ngModel></div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm"><label for="Longitude">Longitude</label></div>
+          <div class="col-sm"><input type="number" name="Longitude" ngModel></div>
+        </div>
+      <input type="submit"class="btn btn-dark" value="Add">
+    </form>
+  </div> 
+  

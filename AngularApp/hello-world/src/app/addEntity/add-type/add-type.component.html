@@ -1,0 +1,10 @@
+<div class="col-md-8">
+    <h1>Add type</h1>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove">
+      <div class="form-group">
+        <div class="col-sm"><label for="Name">Name</label></div>
+        <div class="col-sm"><input type="text" name="Name" ngModel></div>
+      </div>
+      <input type="submit"class="btn btn-dark" value="Add">
+    </form>
+  </div> 

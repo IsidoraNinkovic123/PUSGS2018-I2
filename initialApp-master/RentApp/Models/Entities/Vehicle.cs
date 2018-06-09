@@ -15,11 +15,10 @@ namespace RentApp.Models.Entities
         public string Description { get; set; }   
         public decimal PricePerHour { get; set; }
         public bool Unvailable { get; set; }
-
-       
         public virtual List<string> Images { get; set; }
 
         public int TypeId { get; set; }
+
         [ForeignKey("TypeId")]
         public virtual  TypeOfVehicle Type { get; set; }
 

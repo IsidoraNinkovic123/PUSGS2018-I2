@@ -1,0 +1,32 @@
+input[type=text] {
+    width: 300px;
+}
+
+input[type=password] {
+    width: 300px;
+}
+
+input[type=email] {
+    width: 300px;
+}
+
+h1{
+    margin-bottom: 40px;
+    color: rgb(216, 96, 53);
+}
+
+form.groove {
+    border-style: groove;
+    border-color: coral;
+    background-color: lightsalmon;
+    width: 500px;
+    padding: 20px;
+}
+
+label{
+    font-size: 18px;
+}
+
+input[type=submit]{
+    background-color: rgb(216, 96, 53);
+}

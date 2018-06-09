@@ -10,7 +10,7 @@ using System;
 using System.Data.Entity;
 using System.Web.Http;
 using Unity;
-using Unity.AspNet.WebApi;
+using Unity.WebApi;
 using Unity.Injection;
 using Unity.Lifetime;
 
