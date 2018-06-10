@@ -1,0 +1,44 @@
+<div id="content">
+    <h2>User profile</h2>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove"> 
+      <div class="form-group">
+            <label for="Image">Profile picture</label>
+            <div id=imageDiv>
+            <img src={{user.Image}} width="120" height="120"/>
+            <input type="file" accept="image/*" name="Image" [(ngModel)]=user.Image>
+            </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm"><label for="FullName">Full name</label></div>
+        <div class="col-sm"><input type="text" name="FullName" [(ngModel)]=user.FullName></div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm"><label for="Birthday">Birthday</label></div>
+          <div class="col-sm"><input type="date" name="Birthday" [(ngModel)]=user.Birthday></div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm"><label for="Email">Email</label></div>
+          <div class="col-sm"><input type="email" name="Email" [(ngModel)]=user.Email></div>
+      </div>
+      <input type="submit"class="btn btn-dark" value="Update">
+    <div><button id=toggleButton  (click)="toggle()" class="btn btn-dark">Change password</button></div>
+    <div *ngIf="isVisible">
+        <form #f="ngForm" (ngSubmit)="onSubmitPass(f.value, f)"> 
+            <div class="form-group">
+                <div class="col-sm"><label for="Password">Old Password</label></div>
+                <div class="col-sm"><input type="password" name="Password"  ngModel></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm"><label for="ConfirmedPassword">New  Password</label></div>
+                <div class="col-sm"><input type="password" name="ConfirmedPassword" ngModel></div>
+            </div>
+            <div class="form-group">
+                    <div class="col-sm"><label for="OldPassword">Confirmed Password</label></div>
+                    <div class="col-sm"><input type="password" name="OldPassword"  ngModel></div>
+            </div>
+            <input type="submit"class="btn btn-dark" value="Change">
+        </form>
+    </div>
+   </form>
+  </div> 
+  

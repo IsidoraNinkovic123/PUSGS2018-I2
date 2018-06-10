@@ -22,6 +22,10 @@ h2{
     margin-bottom: 50px;
 }
 
+button{
+    background-color: lightsalmon;
+}
+
 div.groove {
     border-style: groove;
     border-color: coral;
@@ -30,17 +34,15 @@ div.groove {
     padding: 20px;
 }
 
-a{
-    color:black;
+div.groove2 {
+    border-style: groove;
+    border-color: coral;
+    background-color:antiquewhite;
+    width: 600px;
+    padding: 20px;
+    margin-left: 40px;
+}
+
+#title{
     font-size: 22px;
-}
-
-a:hover{
-    text-decoration: none;
-    color: rgb(216, 96, 53);
-}
-
-#content{
-    margin-left: 30px;
-    margin-top: 30px;
 }

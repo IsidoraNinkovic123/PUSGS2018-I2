@@ -14,23 +14,49 @@ import { AddTypeComponent } from './addEntity/add-type/add-type.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { RegistrationComponent } from './addEntity/registration/registration.component';
 import { ShowServicesComponent } from './showEntities/show-services/show-services.component';
+import { ProfileComponent } from './profile/profile.component';
+import { OneServiceComponent } from './showEntities/one-service/one-service.component';
 
 const Routes = [
   {
-    path: "AddService",
+    path: "home",
+    component: ShowServicesComponent
+  },
+  {
+    path: "addService",
     component: AddServiceComponent,
   },
   {
-    path: "AddBranch",
+    path: "addBranch",
     component: AddBranchComponent
   },
   {
-    path: "AddVehicle",
+    path: "addVehicle",
     component: AddVehicleComponent
   },
   {
-    path: "AddType",
+    path: "addType",
     component: AddTypeComponent
+  },
+  {
+    path: "service",
+    component: OneServiceComponent
+  },
+  {
+    path: "branch",
+    component: OneServiceComponent
+  },
+  {
+    path: "logIn",
+    component: LogInComponent
+  },
+  {
+    path: "register",
+    component: RegistrationComponent
+  },
+  {
+    path: "profile",
+    component: ProfileComponent
   },
   {
     path: "other",
@@ -47,7 +73,9 @@ const Routes = [
     AddTypeComponent,
     LogInComponent,
     RegistrationComponent,
-    ShowServicesComponent
+    ShowServicesComponent,
+    ProfileComponent,
+    OneServiceComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Service} from '../../models/service.model'
 import { ServiceOperations } from 'src/app/operations/serviceOperations/ServiceOperations.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-show-services',
@@ -12,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class ShowServicesComponent implements OnInit {
 
   services: Service[]
-  constructor(private addService: ServiceOperations,private httpClient: HttpClient) { }
+  constructor(private addService: ServiceOperations) { }
 
   ngOnInit() {
     this.addService.getMethodDemo()
@@ -25,7 +24,9 @@ export class ShowServicesComponent implements OnInit {
         console.log(error);
       })
       this.services = [];
-      this.services.push(new Service("a","C:\Users\tejoo\Desktop\pepsi.png","a@hotmail.com","aaa"));
+      //this.services.push(new Service("a","C:\Users\tejoo\Desktop\pepsi.png","a@hotmail.com","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+      //this.services.push(new Service("a","C:\Users\tejoo\Desktop\pepsi.png","a@hotmail.com","aaa"));
+      //this.services.push(new Service("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","C:\Users\tejoo\Desktop\pepsi.png","a@hotmail.com","aaa"));
   }
 
 }

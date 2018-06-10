@@ -1,5 +1,5 @@
-<div class="col-md-8">
-  <h1>Add service</h1>
+<div id="content">
+  <h2>Add service</h2>
   <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove">
     <div class="form-group">
       <div class="col-sm"><label for="Name">Name</label></div>
@@ -17,7 +17,6 @@
       <div class="col-sm"><label for="Description">Description</label></div>
       <div class="col-sm"><input type="text" name="Description" ngModel></div>
     </div>
-    <input type="submit"class="btn btn-dark" value="Add">
   </form>
 </div> 
 

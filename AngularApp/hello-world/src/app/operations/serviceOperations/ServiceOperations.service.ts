@@ -29,6 +29,11 @@ export class ServiceOperations {
     .catch(this.handleError);
   }
 
+  getOneService(id): Observable<any> {
+    return this.http.get('http://localhost:51680/api/Services/GetService?id='+ id)
+    .map(this.parseData)
+    .catch(this.handleError);
+  }
   postMethodDemo(service): Observable<any> {    
     return this.httpClient.post("http://localhost:51680/api/Services/PostService", service);
   }

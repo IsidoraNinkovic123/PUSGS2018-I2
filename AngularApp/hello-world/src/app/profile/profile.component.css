@@ -6,6 +6,16 @@ input[type=password] {
     width: 300px;
 }
 
+input[type=email] {
+    width: 300px;
+}
+#toggleButton{
+    background-color: rgb(216, 96, 53);
+    margin-top:20px;
+    margin-bottom:20px;
+
+}
+
 h2{
     margin-bottom: 40px;
     color: rgb(216, 96, 53);
@@ -17,6 +27,9 @@ form.groove {
     background-color: lightsalmon;
     width: 500px;
     padding: 20px;
+}
+#imageDiv{
+    margin-left:120px;
 }
 
 label{

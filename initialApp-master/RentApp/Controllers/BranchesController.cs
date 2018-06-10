@@ -7,8 +7,6 @@ using RentApp.Models.Entities;
 using RepoDemo.Persistance.UnitOfWork;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
-using System.Web;
-using System;
 
 namespace RentApp.Controllers
 {
@@ -30,8 +28,11 @@ namespace RentApp.Controllers
             return unitOfWork.Branches.GetAll();
         }
 
+
+    
+
         // GET: api/Branches/5
-       // [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        // [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [ResponseType(typeof(Branch))]
         public IHttpActionResult GetBranch(int id)
         {
@@ -76,25 +77,6 @@ namespace RentApp.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        [ResponseType(typeof(void))]
-        public string PostLogo()
-        {
-            {
-                int br = HttpContext.Current.Request.Files.Count;
-
-                if (HttpContext.Current.Request.Files.Count > 0)
-                {
-                    HttpFileCollection files = HttpContext.Current.Request.Files;
-                    HttpPostedFile file = files[0];
-                    string path = HttpContext.Current.Server.MapPath("/Images" + "_" + file.FileName);
-                    file.SaveAs(path);
-                    return "/Images" + "_" + file.FileName;
-
-                }
-                throw new Exception();
-            }
         }
 
         // POST: api/Branches
