@@ -17,7 +17,6 @@ using RentApp.Models;
 using RentApp.Models.Entities;
 using RentApp.Providers;
 using RentApp.Results;
-using RepoDemo.Persistance.UnitOfWork;
 
 namespace RentApp.Controllers
 {
@@ -320,8 +319,6 @@ namespace RentApp.Controllers
             }
 
             var user = new RAIdentityUser() { UserName = model.Email, Email = model.Email };
-            var appUser = new AppUser() { FullName = model.FullName, Email = model.Email, Birthday = model.Birthday, Activated = false };
-            user.AppUser = appUser;
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RentApp</RootNamespace>
     <AssemblyName>RentApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -26,7 +26,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,7 +55,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -68,17 +66,18 @@
     <Reference Include="System.Web.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.6\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.6\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
@@ -126,7 +125,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="Thinktecture.IdentityModel.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Thinktecture.IdentityModel.Core.1.3.0\lib\net45\Thinktecture.IdentityModel.Core.dll</HintPath>
     </Reference>
@@ -280,27 +278,21 @@
       <DependentUpon>201806031439020_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201806041020583_updated initial migration.cs" />
-    <Compile Include="Migrations\201806041020583_updated initial migration.Designer.cs">
-      <DependentUpon>201806041020583_updated initial migration.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\201806041020583_updated initial migration.Designer.cs" />
     <Compile Include="Migrations\201806041040388_updated Rent.cs" />
-    <Compile Include="Migrations\201806041040388_updated Rent.Designer.cs">
-      <DependentUpon>201806041040388_updated Rent.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\201806041040388_updated Rent.Designer.cs" />
     <Compile Include="Migrations\201806050654198_Strani kljuc izmena.cs" />
-    <Compile Include="Migrations\201806050654198_Strani kljuc izmena.Designer.cs">
-      <DependentUpon>201806050654198_Strani kljuc izmena.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\201806050654198_Strani kljuc izmena.Designer.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\Branch.cs" />
     <Compile Include="Models\Entities\RAIdentityUser.cs" />
     <Compile Include="Models\Entities\AppUser.cs" />
+    <Compile Include="Models\Entities\Rent.cs" />
     <Compile Include="Models\Entities\Services.cs" />
     <Compile Include="Models\Entities\TypeOfVehicle.cs" />
     <Compile Include="Models\Entities\Vehicle.cs" />
-    <Compile Include="Models\Entities\Rent.cs" />
     <Compile Include="Persistance\RADBContext.cs" />
     <Compile Include="Persistance\Repository\AppUserRepository.cs" />
     <Compile Include="Persistance\Repository\BranchRepository.cs" />
@@ -315,9 +307,9 @@
     <Compile Include="Persistance\Repository\Repository.cs" />
     <Compile Include="Persistance\Repository\ServiceRepository.cs" />
     <Compile Include="Persistance\Repository\TypeOfVehicleRepository.cs" />
+    <Compile Include="Persistance\Repository\VehicleRepository.cs" />
     <Compile Include="Persistance\UnitOfWork\DemoUnitOfWork.cs" />
     <Compile Include="Persistance\UnitOfWork\IUnitOfWork.cs" />
-    <Compile Include="Persistance\Repository\VehicleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Providers\CustomJwtFormat.cs" />
@@ -384,6 +376,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
+    <Folder Include="Views\Vehicles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -395,24 +389,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806031439020_Initial.resx">
       <DependentUpon>201806031439020_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806041020583_updated initial migration.resx">
-      <DependentUpon>201806041020583_updated initial migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806041040388_updated Rent.resx">
-      <DependentUpon>201806041040388_updated Rent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806050654198_Strani kljuc izmena.resx">
-      <DependentUpon>201806050654198_Strani kljuc izmena.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806041020583_updated initial migration.resx" />
+    <EmbeddedResource Include="Migrations\201806041040388_updated Rent.resx" />
+    <EmbeddedResource Include="Migrations\201806050654198_Strani kljuc izmena.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

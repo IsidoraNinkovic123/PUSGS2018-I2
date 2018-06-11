@@ -7,6 +7,8 @@ using RentApp.Models.Entities;
 using RepoDemo.Persistance.UnitOfWork;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
+using System.Web;
+using System;
 
 namespace RentApp.Controllers
 {
@@ -110,6 +112,22 @@ namespace RentApp.Controllers
         private bool VehicleExists(int id)
         {
             return unitOfWork.Vehicles.Get(id) != null;
+        }
+
+
+        [HttpPost]
+        public string PostImage()
+        {
+            if (HttpContext.Current.Request.Files.Count > 0)
+            {
+                HttpFileCollection files = HttpContext.Current.Request.Files;
+                HttpPostedFile file = files[0];
+                string putanja = HttpContext.Current.Server.MapPath("/Content/myApp/slike/" + "_" + file.FileName);
+                file.SaveAs(putanja);
+                return "/Images/image" + "_" + file.FileName;
+            }
+
+            throw new Exception();
         }
     }
 }

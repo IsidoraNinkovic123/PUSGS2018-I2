@@ -5,6 +5,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RepoDemo.Persistance.UnitOfWork;
+using System.Web;
+using System;
 
 namespace RentApp.Controllers
 {
@@ -99,6 +101,22 @@ namespace RentApp.Controllers
         private bool AppUserExists(int id)
         {
             return unitOfWork.AppUsers.Get(id) != null;
+        }
+
+
+        [HttpPost]
+        public string PostImage()
+        {
+            if (HttpContext.Current.Request.Files.Count > 0)
+            {
+                HttpFileCollection files = HttpContext.Current.Request.Files;
+                HttpPostedFile file = files[0];
+                string putanja = HttpContext.Current.Server.MapPath("/Content/myApp/slike/" + "_" + file.FileName);
+                file.SaveAs(putanja);
+                return "/Images/image" + "_" + file.FileName;
+            }
+
+            throw new Exception();
         }
     }
 }
