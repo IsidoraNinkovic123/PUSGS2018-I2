@@ -85,7 +85,7 @@ namespace RentApp.Migrations
             );
 
             //novi entiteti
-            var T1 = new TypeOfVehicle() { Name = "Limuzina" };
+          /*  var T1 = new TypeOfVehicle() { Name = "Limuzina" };
             var s1 = new Service() { Name = "Service1", Description = "First Service", Email = "service1@yahoo.com", Logo = "" };           
             var V1 = new Vehicle() { Model = "A1", Manufactor = "Audi", Year = new DateTime(2018, 1, 1), Description = "First vehicle", PricePerHour = 100, Unvailable = false };
             V1.Type = T1;
@@ -104,7 +104,7 @@ namespace RentApp.Migrations
             context.Branches.AddOrUpdate(p => p.Address,b1);
             context.TypeOfVehicles.AddOrUpdate(p => p.Name,T1);
             context.Vehicles.AddOrUpdate(p => p.Model,V1);
-            context.Rents.AddOrUpdate(p => p.Id,R1);
+            context.Rents.AddOrUpdate(p => p.Id,R1);*/
 
 
 

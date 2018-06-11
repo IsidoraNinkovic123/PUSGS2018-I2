@@ -34,6 +34,6 @@ export class BranchOperationsService {
   }
   postLogo(formData,options): Observable<any>
   {
-    return this.http.post("http://localhost:51680/api/Branches/PostLogo", formData, options)
+    return this.http.post("http://localhost:51680/api/Branches/PostImage", formData,options)
   }
 }

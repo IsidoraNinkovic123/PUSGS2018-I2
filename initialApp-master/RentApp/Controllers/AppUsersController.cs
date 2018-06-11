@@ -103,20 +103,5 @@ namespace RentApp.Controllers
             return unitOfWork.AppUsers.Get(id) != null;
         }
 
-
-        [HttpPost]
-        public string PostImage()
-        {
-            if (HttpContext.Current.Request.Files.Count > 0)
-            {
-                HttpFileCollection files = HttpContext.Current.Request.Files;
-                HttpPostedFile file = files[0];
-                string putanja = HttpContext.Current.Server.MapPath("/Content/myApp/slike/" + "_" + file.FileName);
-                file.SaveAs(putanja);
-                return "/Images/image" + "_" + file.FileName;
-            }
-
-            throw new Exception();
-        }
     }
 }

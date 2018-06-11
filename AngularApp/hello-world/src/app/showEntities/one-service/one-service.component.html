@@ -1,22 +1,21 @@
 <div id="serviceContainer">
-    <h2>Service information </h2>
+    <h2>Service information</h2>
     <div>
         <div id="ser" class="groove">
           <div>
-            <img src={{service.Logo}} height="50" width="50"/>&nbsp;
+            <img [src]="service.Logo" height="50" width="50"/>&nbsp;
             <span id="title">{{service.Name}}</span>
           </div>
           <div>Email:  {{service.Email}}</div>
           <div>Description:  {{service.Description}}</div>
         </div>
-        <h2>Branches</h2>
-        <div *ngFor="let branch of service.Branches" id="ser"  class="groove2">
+        <h2>Branches &nbsp; &nbsp; <button [routerLink]="['/addBranch/'+ Id]" class="btn btn-dark" >Add new </button></h2>
+        <div *ngFor="let branch of branches" id="ser"  class="groove2">
             <img src={{branch.Logo}} height="50" width="50"/>&nbsp;
             <div>Address:  {{branch.Address}}</div>
             <div>Latitude:  {{branch.Latitude}} &nbsp; &nbsp; &nbsp;  Longitude:  {{branch.Longitude}}</div>
             <button [routerLink]="['/branch/'+ branch.Id]" class="btn btn-dark" >Open</button>
         </div>
-        <button [routerLink]="['/addBranch']" class="btn btn-dark" >Add new </button>
     </div>
    
   </div>

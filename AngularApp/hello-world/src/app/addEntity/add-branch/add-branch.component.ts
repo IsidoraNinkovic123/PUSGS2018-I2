@@ -3,8 +3,11 @@ import {NgForm} from '@angular/forms';
 import { BranchOperationsService } from 'src/app/operations/branchOperations/branch-operations.service';
 import {RequestOptions, Request, RequestMethod} from '@angular/http';
 import { Headers } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
 import {Branch} from '../../models/branch.model'
+import {
+  Router,
+  ActivatedRoute
+} from '@angular/router';
 
 @Component({
   selector: 'app-add-branch',
@@ -14,12 +17,17 @@ import {Branch} from '../../models/branch.model'
 })
 export class AddBranchComponent implements OnInit {
 
-  constructor(private addBranch: BranchOperationsService,private httpClient: HttpClient) { }
+  serviceId: number = -1;
+  constructor(private addBranch: BranchOperationsService,private router: Router, private activatedRoute: ActivatedRoute) {
+    activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});
+   }
 
   ngOnInit() {
   }
 
   onSubmit(branch: Branch, form: NgForm) {
+    branch.ServiceId = this.serviceId;
+
     this.addBranch.postMethodDemo(branch)
     .subscribe(
       data => {

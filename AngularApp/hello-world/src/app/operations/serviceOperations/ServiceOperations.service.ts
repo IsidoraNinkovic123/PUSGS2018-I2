@@ -37,4 +37,10 @@ export class ServiceOperations {
   postMethodDemo(service): Observable<any> {    
     return this.httpClient.post("http://localhost:51680/api/Services/PostService", service);
   }
+  
+  getServiceBranches(id): Observable<any> {
+    return this.http.get('http://localhost:51680/api/Branches?serviceId='+id)
+    .map(this.parseData)
+    .catch(this.handleError);
+  }
 }

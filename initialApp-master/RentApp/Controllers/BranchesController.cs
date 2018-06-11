@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using System.Web;
 using System;
+using System.Linq;
 
 namespace RentApp.Controllers
 {
@@ -28,7 +29,14 @@ namespace RentApp.Controllers
         public IEnumerable<Branch> GetBranches()
         {
             return unitOfWork.Branches.GetAll();
-        }    
+        }
+
+        public IEnumerable<Branch> GetBranchesService(int serviceId)
+        {
+            List<Branch> branches=new List<Branch>( unitOfWork.Branches.GetAll());
+            return branches.Where(b => b.ServiceId == serviceId);
+
+        }
 
         // GET: api/Branches/5
         // [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -116,6 +124,7 @@ namespace RentApp.Controllers
 
 
         [HttpPost]
+        [Route("PostImage")]
         public string PostImage()
         {
             if (HttpContext.Current.Request.Files.Count > 0)

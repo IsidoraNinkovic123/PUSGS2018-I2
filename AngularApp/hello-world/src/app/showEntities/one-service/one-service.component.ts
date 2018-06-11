@@ -15,6 +15,7 @@ import { Branch } from '../../models/branch.model';
 export class OneServiceComponent implements OnInit {
   Id: number = -1;
   service:Service;
+  branches:Branch[];
   
   constructor(private addService: ServiceOperations,private router: Router, private activatedRoute: ActivatedRoute) {
     activatedRoute.params.subscribe(params => {this.Id = params["Id"]});
@@ -30,13 +31,14 @@ export class OneServiceComponent implements OnInit {
         console.log(error);
       })
 
-    this.service=new Service("Servis","","service@yahoo.com","desc");
-    
-    this.service.Branches=[];
-    this.service.Branches.push(new Branch("","address",1,1));
-    this.service.Branches.push(new Branch("","address",1,1));
-    this.service.Branches.push(new Branch("","address",1,1));
-    this.service.Branches.push(new Branch("","address",1,1));
+      this.addService.getServiceBranches(this.Id)
+      .subscribe(
+        data => {
+          this.branches = data; 
+        },
+        error => {
+          console.log(error);
+        })
   }
 
 }

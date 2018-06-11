@@ -1,19 +1,10 @@
-<!--<app-add-vehicle></app-add-vehicle>
-<app-add-type></app-add-type>
-<app-add-branch></app-add-branch>
-<app-add-service></app-add-service>
-<app-log-in></app-log-in>
-<app-registration></app-registration>
-<app-show-services></app-show-services>-->
-
-
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
         <a class="navbar-brand" [routerLink]="['/home']">Rent a vehicle</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a [routerLink]="['/service']">Home</a></li>
+            <li><a [routerLink]="['/home']">Home</a></li>
             <li><a [routerLink]="['/home']">Rent</a></li>
             <li><a [routerLink]="['/addType']">Add type</a></li>
             <li><a [routerLink]="['/profile']">Profile</a></li>
@@ -27,3 +18,4 @@
 </nav>
 
 <router-outlet></router-outlet>
+

@@ -1,16 +1,15 @@
 <div id="serviceContainer">
-  <h2>Available services</h2>
+  <h2>Available services &nbsp; &nbsp;<button [routerLink]="['/addService']" class="btn btn-dark" >Add new </button></h2>
   <div>
     <div *ngFor="let service of services">
       <div id="ser" class="groove">
         <div>
-          <img src={{service.Logo}} height="50" width="50"/>&nbsp;
+          <img [src]="service.Logo" height="50" width="50"/>&nbsp;
           <a [routerLink]="['/service/'+ service.Id]">{{service.Name}}</a>
         </div>
         <div>Email:  {{service.Email}}</div>
         <div>Description:  {{service.Description}}</div>
       </div>
     </div>
-    <button [routerLink]="['/addService']" class="btn btn-dark" >Add new </button>
   </div>
 </div>

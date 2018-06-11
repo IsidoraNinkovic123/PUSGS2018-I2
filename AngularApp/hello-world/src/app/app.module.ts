@@ -16,6 +16,7 @@ import { RegistrationComponent } from './addEntity/registration/registration.com
 import { ShowServicesComponent } from './showEntities/show-services/show-services.component';
 import { ProfileComponent } from './profile/profile.component';
 import { OneServiceComponent } from './showEntities/one-service/one-service.component';
+import { ClockComponent } from './time/time.component';
 
 const Routes = [
   {
@@ -27,7 +28,7 @@ const Routes = [
     component: AddServiceComponent,
   },
   {
-    path: "addBranch",
+    path: "addBranch/:Id",
     component: AddBranchComponent
   },
   {
@@ -39,11 +40,7 @@ const Routes = [
     component: AddTypeComponent
   },
   {
-    path: "service",
-    component: OneServiceComponent
-  },
-  {
-    path: "branch",
+    path: "branch/:Id",
     component: OneServiceComponent
   },
   {
@@ -59,9 +56,14 @@ const Routes = [
     component: ProfileComponent
   },
   {
+    path: "service/:Id",
+    component: OneServiceComponent
+  },
+  {
     path: "other",
     redirectTo: "home"
   }
+
 ]
 
 @NgModule({
@@ -75,7 +77,8 @@ const Routes = [
     RegistrationComponent,
     ShowServicesComponent,
     ProfileComponent,
-    OneServiceComponent
+    OneServiceComponent,
+    ClockComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +89,7 @@ const Routes = [
     HttpClientModule,
     HttpClientXsrfModule
   ],
-  providers: [],
+  providers: [], //mogu staviti sta mi treba u celoj aplikaciji
   bootstrap: [AppComponent]
 })
 

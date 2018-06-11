@@ -17,5 +17,7 @@ namespace RentApp.Persistance.Repository
         }
 
         protected RADBContext RADBContext { get { return context as RADBContext; } }
+
+      
     }
 }

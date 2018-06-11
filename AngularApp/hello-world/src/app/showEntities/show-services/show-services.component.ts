@@ -14,6 +14,8 @@ export class ShowServicesComponent implements OnInit {
   constructor(private addService: ServiceOperations) { }
 
   ngOnInit() {
+    this.services = [];
+
     this.addService.getMethodDemo()
     .subscribe(
       data => {
@@ -23,10 +25,6 @@ export class ShowServicesComponent implements OnInit {
       error => {
         console.log(error);
       })
-      this.services = [];
-      //this.services.push(new Service("a","C:\Users\tejoo\Desktop\pepsi.png","a@hotmail.com","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
-      //this.services.push(new Service("a","C:\Users\tejoo\Desktop\pepsi.png","a@hotmail.com","aaa"));
-      //this.services.push(new Service("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","C:\Users\tejoo\Desktop\pepsi.png","a@hotmail.com","aaa"));
   }
 
 }
