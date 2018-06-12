@@ -29,9 +29,16 @@ export class BranchOperationsService {
     .catch(this.handleError);
   }
 
+  getOneBranch(id): Observable<any> {
+    return this.http.get('http://localhost:51680/api/Branches/GetBranch?id='+ id)
+    .map(this.parseData)
+    .catch(this.handleError);
+  }
+
   postMethodDemo(branch): Observable<any> { 
     return this.httpClient.post("http://localhost:51680/api/Branches/PostBranch", branch);
   }
+
   postLogo(formData,options): Observable<any>
   {
     return this.http.post("http://localhost:51680/api/Branches/PostImage", formData,options)

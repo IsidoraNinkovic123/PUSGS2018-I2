@@ -267,6 +267,8 @@ namespace RentApp.Controllers
             return Ok();
         }
 
+
+     
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
         [AllowAnonymous]
         [Route("ExternalLogins")]
@@ -319,8 +321,11 @@ namespace RentApp.Controllers
             }
 
             var user = new RAIdentityUser() { UserName = model.Email, Email = model.Email };
+            var appUser = new AppUser() { FullName = model.FullName, Email = model.Email, Birthday = model.Birthday, Activated = false };
+            user.AppUser = appUser;
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            UserManager.AddToRole(user.Id, "AppUser");
 
             if (!result.Succeeded)
             {

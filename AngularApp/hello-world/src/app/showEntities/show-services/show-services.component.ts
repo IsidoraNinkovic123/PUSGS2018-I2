@@ -27,4 +27,9 @@ export class ShowServicesComponent implements OnInit {
       })
   }
 
+  //DODATI IZNAD ADD DUGMETA *ngIf="showAddNew()"
+  public showAddNew(): boolean {
+    return localStorage.role == 'Manager';
+  }
+
 }

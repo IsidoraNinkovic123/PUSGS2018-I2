@@ -9,13 +9,12 @@
           <div>Email:  {{service.Email}}</div>
           <div>Description:  {{service.Description}}</div>
         </div>
-        <h2>Branches &nbsp; &nbsp; <button [routerLink]="['/addBranch/'+ Id]" class="btn btn-dark" >Add new </button></h2>
+        <h2>Branches &nbsp; &nbsp; <button [routerLink]="['/addBranch/'+ Id]" class="btn btn-dark">Add new </button></h2>
         <div *ngFor="let branch of branches" id="ser"  class="groove2">
             <img src={{branch.Logo}} height="50" width="50"/>&nbsp;
             <div>Address:  {{branch.Address}}</div>
             <div>Latitude:  {{branch.Latitude}} &nbsp; &nbsp; &nbsp;  Longitude:  {{branch.Longitude}}</div>
             <button [routerLink]="['/branch/'+ branch.Id]" class="btn btn-dark" >Open</button>
         </div>
-    </div>
-   
+    </div>  
   </div>

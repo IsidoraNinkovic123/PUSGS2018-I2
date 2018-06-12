@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { RegistrationOperationsService } from 'src/app/operations/registrationOperations/registration-operations.service';
-import { HttpClient } from '@angular/common/http';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -12,7 +11,7 @@ import { User } from '../../models/user.model';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor(private addUser: RegistrationOperationsService, private httpClient: HttpClient) { }
+  constructor(private addUser: RegistrationOperationsService) { }
 
   ngOnInit() {
   }

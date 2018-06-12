@@ -17,7 +17,7 @@ export class OneServiceComponent implements OnInit {
   service:Service;
   branches:Branch[];
   
-  constructor(private addService: ServiceOperations,private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private addService: ServiceOperations, private router: Router, private activatedRoute: ActivatedRoute) {
     activatedRoute.params.subscribe(params => {this.Id = params["Id"]});
    }
 
@@ -39,6 +39,11 @@ export class OneServiceComponent implements OnInit {
         error => {
           console.log(error);
         })
+  }
+
+  //DODATI IZNAD ADD DUGMETA *ngIf="showAddNew()"
+  public showAddNew(): boolean {
+    return localStorage.role == 'Manager';
   }
 
 }

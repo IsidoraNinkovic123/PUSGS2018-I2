@@ -7,4 +7,27 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor() {}
+
+  ngOnInit() {
+  }
+ 
+  logout()
+  {
+    localStorage.clear();
+  }
+
+  public localStorageJWT(): string {
+    return localStorage.jwt;
+  }
+
+  public showAddType(): boolean {
+    return localStorage.role == 'Admin';
+  }
+
+  public showProfile(): boolean {
+    return localStorage.role == 'AppUser';
+  }
+
 }

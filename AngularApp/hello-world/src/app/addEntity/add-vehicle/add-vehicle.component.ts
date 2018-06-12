@@ -4,7 +4,6 @@ import { VehicleOperationsService } from 'src/app/operations/vehicleOperations/v
 import { TypeOperationsService } from 'src/app/operations/typeOperations/type-operations.service';
 import {RequestOptions, Request, RequestMethod} from '@angular/http';
 import { Headers } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
 import { Vehicle } from '../../models/vehicle.model';
 import { TypeOfVehicle } from '../../models/typeOfVehicle.model';
 
@@ -16,7 +15,7 @@ import { TypeOfVehicle } from '../../models/typeOfVehicle.model';
 })
 export class AddVehicleComponent implements OnInit {
 
-  constructor(private addVehicle: VehicleOperationsService, private typeOperations: TypeOperationsService, private httpClient: HttpClient) { }
+  constructor(private addVehicle: VehicleOperationsService, private typeOperations: TypeOperationsService) { }
 
   type: TypeOfVehicle;
   types: TypeOfVehicle[];

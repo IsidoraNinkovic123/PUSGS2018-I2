@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Service} from '../../models/service.model'
 import { ServiceOperations } from 'src/app/operations/serviceOperations/ServiceOperations.service';
-import { HttpClient } from '@angular/common/http';
+import {Router,} from '@angular/router';
 
 @Component({
   selector: 'app-add-service',
@@ -12,14 +12,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AddServiceComponent implements OnInit {
   services: Service[]
-  constructor(private addService: ServiceOperations,private httpClient: HttpClient) { }
+
+  constructor(private addService: ServiceOperations, private router: Router) {
+   }
 
   ngOnInit() {
     this.addService.getMethodDemo()
     .subscribe(
       data => {
         this.services = data;
-        
       },
       error => {
         console.log(error);
@@ -33,6 +34,7 @@ export class AddServiceComponent implements OnInit {
     .subscribe(
       data => {
         alert("Service is added succesfully.");
+        this.router.navigateByUrl('/home');
       },
       error => {
         console.log(error);

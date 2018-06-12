@@ -5,15 +5,15 @@ export class User {
     PersonalDocument: string;
     Activated: boolean;
     Password: string;
-    ConfirmedPassword: string;
+    ConfirmPassword: string;
 
-    constructor(fullName:string, email: string, birthday: Date, personalDocument: string, password:string, confirmedPassword: string) {
+    constructor(fullName:string, email: string, birthday: Date, personalDocument: string, password:string, confirmPassword: string) {
         this.FullName = fullName;
         this.Email = email;
         this.Birthday = birthday;
         this.PersonalDocument = personalDocument;
         this.Activated = false;
         this.Password = password;
-        this.ConfirmedPassword = confirmedPassword;
+        this.ConfirmPassword = confirmPassword;
     }
 }

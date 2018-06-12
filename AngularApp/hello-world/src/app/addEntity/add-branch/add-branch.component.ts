@@ -18,7 +18,7 @@ import {
 export class AddBranchComponent implements OnInit {
 
   serviceId: number = -1;
-  constructor(private addBranch: BranchOperationsService,private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private addBranch: BranchOperationsService, private router: Router, private activatedRoute: ActivatedRoute) {
     activatedRoute.params.subscribe(params => {this.serviceId = params["Id"]});
    }
 
@@ -32,6 +32,7 @@ export class AddBranchComponent implements OnInit {
     .subscribe(
       data => {
         alert("Branch is added succesfully.");
+        this.router.navigateByUrl('/service/'+this.serviceId);
       },
       error => {
         console.log(error);

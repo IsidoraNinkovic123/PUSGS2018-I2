@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { RegistrationOperationsService } from 'src/app/operations/registrationOperations/registration-operations.service';
-import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { Password } from '../models/password.model';
 
@@ -15,7 +14,7 @@ export class ProfileComponent implements OnInit {
   user:User;
   id:number;
 
-  constructor(private addUser: RegistrationOperationsService, private httpClient: HttpClient) {    }
+  constructor(private addUser: RegistrationOperationsService) {    }
 
   ngOnInit() {
     this.addUser.getMethodDemo(this.id)
@@ -26,8 +25,8 @@ export class ProfileComponent implements OnInit {
       error => {
         console.log(error);
       })
- 
-      this.user=new User("Ivona","Ivona@yahoo.com",new Date(2018,2,1),"slika","pass","pass");
+
+      //this.user=new User("ivona","ivona@yahoo.com",new Date(1995,7,30),"","a","a");
     }
 
   onSubmit(user: User, form: NgForm) {

@@ -6,13 +6,15 @@
         <ul class="nav navbar-nav">
             <li><a [routerLink]="['/home']">Home</a></li>
             <li><a [routerLink]="['/home']">Rent</a></li>
-            <li><a [routerLink]="['/addType']">Add type</a></li>
-            <li><a [routerLink]="['/profile']">Profile</a></li>
+            <li *ngIf="showAddType()"><a [routerLink]="['/addType']">Add type</a></li>
+            <li *ngIf="showProfile()"><a [routerLink]="['/profile']">Profile</a></li>
         </ul>
 
         <ul class="nav navbar-nav" id="secondList">
-            <li><a [routerLink]="['/logIn']">Log in</a></li>
-            <li><a [routerLink]="['/register']">Register</a></li>
+            <li *ngIf="!localStorageJWT()"><a [routerLink]="['/logIn']">Log in</a></li>
+            <li *ngIf="!localStorageJWT()"><a [routerLink]="['/register']">Register</a></li>
+            <li *ngIf="localStorageJWT()"><a [routerLink]="['/home']" (click)="logout()" >Log out</a></li>
+
         </ul>
     </div>
 </nav>

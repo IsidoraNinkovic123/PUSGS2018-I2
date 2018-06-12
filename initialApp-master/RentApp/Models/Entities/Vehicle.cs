@@ -23,5 +23,9 @@ namespace RentApp.Models.Entities
         [ForeignKey("TypeId")]
         public virtual  TypeOfVehicle Type { get; set; }
 
+        public int BranchId { get; set; }
+        [ForeignKey("BranchId")]
+        public virtual Branch Branch { get; set; }
+
     }
 }
