@@ -29,8 +29,21 @@ export class TypeOperationsService {
     .catch(this.handleError);
   }
 
+  getVehicleType(id): Observable<any> {
+    return this.httpClient.get('http://localhost:51680/api/TypeOfVehicles/GetTypeOfVehicle?id=',id);
+  }
+
   postMethodDemo(type): Observable<any> { 
     return this.httpClient.post("http://localhost:51680/api/TypeOfVehicles/PostTypeOfVehicle", type);
+  }
+
+  putMethodDemo(id,type): Observable<any> {  
+    return this.httpClient.put("http://localhost:51680/api/TypeOfVehicles/"+id, type);
+  }
+
+  deleteMethodDemo(id): Observable<any> {  
+    return this.httpClient.delete("http://localhost:51680/api/TypeOfVehicles/"+id)
+   
   }
 
 }

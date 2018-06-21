@@ -6,6 +6,7 @@ import {
   HttpInterceptor} from '@angular/common/http';
 import { LoginOperationsService } from '../operations/logInOperations/login-operations.service';
 import { Observable } from 'rxjs';
+import { Http } from '@angular/http/src/http';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -16,7 +17,6 @@ export class TokenInterceptor implements HttpInterceptor {
     console.log("Token : ", localStorage.jwt);
 
     let jwt = localStorage.jwt;
-
     if (jwt) 
     {
         console.log(request)

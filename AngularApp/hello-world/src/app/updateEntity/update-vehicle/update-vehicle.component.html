@@ -1,0 +1,51 @@
+<div id="content">
+    <h2>Update vehicle</h2>
+
+    <div>
+        <div *ngFor="let item of vehicle.ImgArray; let i = index" [attr.data-index]="i" >
+            <button (click)="deleteImage(i)" class="btn btn-dark" >X</button>
+            <img [src]="item" height="150" width="200"/>
+        </div>
+    </div>
+
+    <form #f="ngForm" class="groove"> 
+            <input type="file" name="photo" ng2FileSelect [uploader]="uploader" enctype = "multipart/form-data" multiple />
+
+            <button type="button" class="btn btn-success btn-s" 
+            (click)="uploader.uploadAll()" 
+            [disabled]="!uploader.getNotUploadedItems().length" >
+                Upload an Image
+          </button>
+      </form>
+      
+    <form ngNativeValidate #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove"> 
+      <div class="form-group">
+        <div class="col-sm"><label for="TypeId">Type</label></div>
+        <select name="TypeId" [(ngModel)]="vehicle.TypeId" required>
+            <option *ngFor="let type of types" [ngValue]="type.Id">{{type.Name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="col-sm"><label for="Manufactor">Manufactor</label></div>
+        <div class="col-sm"><input type="text" name="Manufactor" [(ngModel)]="vehicle.Manufactor"> required</div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm"><label for="Model">Model</label></div>
+          <div class="col-sm"><input type="text" name="Model" [(ngModel)]="vehicle.Model" required></div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm"><label for="Year">Year</label></div>
+          <div class="col-sm"><input type="number" min="1930" max="2018" name="Year" [(ngModel)]="vehicle.Year" required></div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm"><label for="Description">Description</label></div>
+          <div class="col-sm"><input type="text" name="Description" [(ngModel)]="vehicle.Description" required></div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm"><label for="PricePerHour">Price per hour</label></div>
+          <div class="col-sm"><input type="number" name="PricePerHour" [(ngModel)]="vehicle.PricePerHour" required></div>
+      </div>
+      <input type="submit"class="btn btn-dark" value="Update">
+    </form>
+  </div> 
+

@@ -1,20 +1,66 @@
 <div id="serviceContainer">
     <h2>Service information</h2>
     <div>
+        <span id="map">
+                <agm-map  id="map"   [latitude]="45.267135" [longitude]="19.83355" [zoom]="11" (mapClick)="placeMarker($event)">                
+                    <agm-marker *ngFor="let branch of branches"  (markerClick)="showBranch(branch.Id)" [latitude]="branch.MapInfo.centerLat" [longitude]="branch.MapInfo.centerLong" [title]="branch.MapInfo.title" [label]="branch.MapInfo.label">
+                        <agm-info-window [latitude]="branch.MapInfo.centerLat"  [longitude]="branch.MapInfo.centerLong" >
+                        <span style="font-size: 16px">{{branch.Address}}</span>
+                        </agm-info-window>
+                    </agm-marker>         
+                </agm-map>
+        </span>
         <div id="ser" class="groove">
           <div>
-            <img [src]="service.Logo" height="50" width="50"/>&nbsp;
+            <img [src]="service.Logo" height="100" width="120"/>&nbsp;
             <span id="title">{{service.Name}}</span>
+            <span id="star" *ngIf="!showMA()">
+                <span class="fa fa-star" (click)="starClick(1)" [ngClass]="{checked: isOn[0]}"></span>
+                <span class="fa fa-star" (click)="starClick(2)" [ngClass]="{checked: isOn[1]}"></span>
+                <span class="fa fa-star" (click)="starClick(3)" [ngClass]="{checked: isOn[2]}"></span>
+                <span class="fa fa-star" (click)="starClick(4)" [ngClass]="{checked: isOn[3]}"></span>
+                <span class="fa fa-star" (click)="starClick(5)" [ngClass]="{checked: isOn[4]}"></span>
+            </span>
+            &nbsp;
+            <span>{{Average}}</span>
+            <button [routerLink]="['/updateService/'+ Id]" class="btn btn-dark" id="UDBtnS" *ngIf="showMA() ||  UserId==service.CreatorId">Update</button>
+            <button  class="btn btn-dark" (click)="delete(service.Id)" id="UDBtnS" *ngIf="showMA() || UserId==service.CreatorId">Delete</button>
           </div>
           <div>Email:  {{service.Email}}</div>
           <div>Description:  {{service.Description}}</div>
+          <button [routerLink]="['/branches/'+ Id]" class="btn btn-dark btn-lg" id="UDBtnB">Branches&nbsp;<span class="glyphicon glyphicon-search"></span></button>
         </div>
-        <h2>Branches &nbsp; &nbsp; <button [routerLink]="['/addBranch/'+ Id]" class="btn btn-dark">Add new </button></h2>
-        <div *ngFor="let branch of branches" id="ser"  class="groove2">
-            <img src={{branch.Logo}} height="50" width="50"/>&nbsp;
-            <div>Address:  {{branch.Address}}</div>
-            <div>Latitude:  {{branch.Latitude}} &nbsp; &nbsp; &nbsp;  Longitude:  {{branch.Longitude}}</div>
-            <button [routerLink]="['/branch/'+ branch.Id]" class="btn btn-dark" >Open</button>
-        </div>
-    </div>  
+    </div> 
+    
+    <h1><br/></h1>
+
+    <h2>Comments</h2>
+    <div *ngIf="!showMA()">
+        <textarea id="txt" [(ngModel)]="newComm.Text"></textarea><br/>
+        <button (click)="addComment()" class="btn btn-dark" >Add</button><h1><br/></h1>
+    </div>
+    <div *ngFor="let com of comments" id="com"  class="groove2">
+        <div id="head"><span>{{com.AppUser.FullName}}</span><span id="date">{{com.Date | date: 'dd/MM/yyyy'}}</span></div>
+        <textarea id="txt" [(ngModel)]=com.Text >{{com.Text}}</textarea>
+        <button  class="btn btn-dark" *ngIf="UserId==com.AppUserId || showMA()" (click)="deleteComm(com.Id)" id="UDBtn">Delete</button>
+        <button  class="btn btn-dark"  *ngIf="UserId==com.AppUserId" (click)="updateComm(com)" id="UDBtn">Update</button>
+    </div>
+
+
+    <div class="pagination">
+      <ul>
+          <li>
+              <a (click)="pagination(1)">1</a>
+          </li>
+          <li >
+              <a (click)="pagination(2)">2</a>
+          </li>
+          <li >
+              <a (click)="pagination(3)" >3</a>
+          </li>
+          <li class="last" >
+              <a (click)="pagination(pageNum+1)">Next</a>
+          </li>
+      </ul>
+  </div>
   </div>

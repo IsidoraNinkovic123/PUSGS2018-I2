@@ -3,11 +3,8 @@ export class Service {
     Logo: string;
     Email: string;
     Description: string;
+    Id:number;
+    Activated:boolean;
 
-    constructor(name:string, logo: string, email: string, description: string) {
-        this.Name = name;
-        this.Logo = logo;
-        this.Email = email;
-        this.Description = description;
-    }
+    constructor(){}
 }

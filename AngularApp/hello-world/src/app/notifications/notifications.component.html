@@ -1,0 +1,6 @@
+<span *ngFor="let not of notifications" >
+  <div class="groove2">{{not.Text}}
+    <button  class="btn btn-dark" (click)="approve(not.Id)">Approve</button>
+    <button  class="btn btn-dark" (click)="delete(not.Id)">Disapprove</button>
+  </div>
+</span>

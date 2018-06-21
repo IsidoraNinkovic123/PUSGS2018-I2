@@ -9,6 +9,7 @@ import { HttpClientXsrfModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/login.interceptor';
 
+import { FileSelectDirective } from 'ng2-file-upload';
 import { AppComponent } from './app.component';
 import { AddServiceComponent } from './addEntity/addService/addService.component';
 import { AddBranchComponent } from './addEntity/add-branch/add-branch.component';
@@ -19,11 +20,21 @@ import { RegistrationComponent } from './addEntity/registration/registration.com
 import { ShowServicesComponent } from './showEntities/show-services/show-services.component';
 import { ProfileComponent } from './profile/profile.component';
 import { OneServiceComponent } from './showEntities/one-service/one-service.component';
-import { ClockComponent } from './time/time.component';
-import { UserProfileGuard } from './guard/userProfile.guard';
-import { AddNewGuard } from './guard/addNew.guard';
-import { AddTypeGuard } from './guard/addType.guard';
+import { UserGuard } from './guard/user.guard';
+import { AUDGuard } from './guard/AUD.guard';
+import { AdminGuard } from './guard/admin.guard';
 import { OneBranchComponent } from './showEntities/one-branch/one-branch.component';
+import { UpdateServiceComponent } from './updateEntity/update-service/update-service.component';
+import { UpdateBranchComponent } from './updateEntity/update-branch/update-branch.component';
+import { UpdateVehicleComponent } from './updateEntity/update-vehicle/update-vehicle.component';
+import { AddRentComponent } from './addEntity/add-rent/add-rent.component';
+import { SearchComponent } from './search/search.component';
+import { ShowBranchesComponent } from './showEntities/show-branches/show-branches.component';
+import { AgmCoreModule } from '@agm/core';
+import { SignalRService } from './signal/signal-r.service';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { UserRentsComponent } from './user-rents/user-rents.component';  
+
 
 
 const Routes = [
@@ -32,27 +43,49 @@ const Routes = [
     component: ShowServicesComponent
   },
   {
+    path: "notifications",
+    component: NotificationsComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: "branches/:Id",
+    component: ShowBranchesComponent
+  },
+  {
+    path: "search",
+    component: SearchComponent
+  },
+  {
+    path: "rents",
+    component: UserRentsComponent,
+    canActivate: [UserGuard]
+  },
+  {
     path: "addService",
     component: AddServiceComponent,
-    canActivate: [AddNewGuard]
+    canActivate: [AUDGuard]
   },
   {
     path: "addBranch/:Id",
     component: AddBranchComponent,
-    canActivate: [AddNewGuard]
+    canActivate: [AUDGuard]
   },
   {
-    path: "addVehicle",
+    path: "addVehicle/:Id",
     component: AddVehicleComponent,
-    canActivate: [AddNewGuard]
+    canActivate: [AUDGuard]
   },
   {
     path: "addType",
     component: AddTypeComponent,
-    canActivate: [AddTypeGuard]
+    canActivate: [AdminGuard]
   },
   {
     path: "branch/:Id",
+    component: OneBranchComponent
+  },
+  {
+    path: "vehicle/:Id",
     component: OneServiceComponent
   },
   {
@@ -66,11 +99,31 @@ const Routes = [
   {
     path: "profile",
     component: ProfileComponent,
-    canActivate: [UserProfileGuard]
+    canActivate: [UserGuard]
   },
   {
     path: "service/:Id",
     component: OneServiceComponent
+  },
+  {
+    path: "updateService/:Id",
+    component: UpdateServiceComponent,
+    canActivate: [AUDGuard]
+  },
+  {
+    path: "updateBranch/:Id",
+    component: UpdateBranchComponent,
+    canActivate: [AUDGuard]
+  },
+  {
+    path: "updateVehicle/:Id",
+    component: UpdateVehicleComponent,
+    canActivate: [AUDGuard]
+  },
+  {
+    path: "rent/:vehicleId/:serviceId",
+    component: AddRentComponent,
+    canActivate: [UserGuard]
   },
   {
     path: "other",
@@ -82,6 +135,7 @@ const Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    FileSelectDirective,
     AddServiceComponent,
     AddBranchComponent,
     AddVehicleComponent,
@@ -91,8 +145,15 @@ const Routes = [
     ShowServicesComponent,
     ProfileComponent,
     OneServiceComponent,
-    ClockComponent,
-    OneBranchComponent
+    OneBranchComponent,
+    UpdateServiceComponent,
+    UpdateBranchComponent,
+    UpdateVehicleComponent,
+    AddRentComponent,
+    SearchComponent,
+    ShowBranchesComponent,
+    NotificationsComponent,
+    UserRentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,10 +162,15 @@ const Routes = [
     RouterModule.forRoot(Routes),
     HttpModule,
     HttpClientModule,
-    HttpClientXsrfModule
+    HttpClientXsrfModule,
+    BrowserModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
+    
   ],
   providers: [
-    UserProfileGuard,
+    UserGuard,
+    AUDGuard,
+    AdminGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -114,9 +180,10 @@ const Routes = [
       provide: 'CanAlwaysActivateGuard',
       useValue: () => {
         return true;
-      } 
-    }    
-  ], //mogu staviti sta mi treba u celoj aplikaciji
+      }     
+    },
+    SignalRService
+  ], 
   bootstrap: [AppComponent]
 })
 

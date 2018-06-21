@@ -24,23 +24,28 @@ export class BranchOperationsService {
   }
 
   getMethodDemo(): Observable<any> {
-    return this.http.get('http://localhost:51680/api/Branches')
-    .map(this.parseData)
-    .catch(this.handleError);
+    return this.httpClient.get('http://localhost:51680/api/Branches');
   }
 
   getOneBranch(id): Observable<any> {
-    return this.http.get('http://localhost:51680/api/Branches/GetBranch?id='+ id)
-    .map(this.parseData)
-    .catch(this.handleError);
+    return this.httpClient.get('http://localhost:51680/api/Branches/GetBranch?id='+ id);
+  }
+
+  getBranchVehicles(id,pageIndex,pageSize): Observable<any> {
+    return this.httpClient.get('http://localhost:51680/api/Vehicles?brId='+ id+'&pageIndex='+pageIndex+"&pageSize="+pageSize);
   }
 
   postMethodDemo(branch): Observable<any> { 
     return this.httpClient.post("http://localhost:51680/api/Branches/PostBranch", branch);
   }
-
-  postLogo(formData,options): Observable<any>
-  {
-    return this.http.post("http://localhost:51680/api/Branches/PostImage", formData,options)
+ 
+  putMethodDemo(id,branch): Observable<any> {  
+    return this.httpClient.put("http://localhost:51680/api/Branches/"+id, branch);
   }
+
+  deleteMethodDemo(id): Observable<any> {  
+    return this.httpClient.delete("http://localhost:51680/api/Branches/"+id)
+   
+  }
+
 }

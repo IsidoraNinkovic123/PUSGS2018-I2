@@ -13,15 +13,13 @@ export class LoginOperationsService {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   //log in
-  getTheToken(email,password){
-    
-        let headers = new HttpHeaders();
-        headers = headers.append('Content-type', 'application/x-www-form-urlencoded');
-        debugger;
+  getTheToken(email,password){    
         if(!localStorage.jwt)
         {
-          let x = this.httpClient.post('http://localhost:51680/oauth/token',`username=`+email+`&password=`+password+`&grant_type=password`, {"headers": headers}) as Observable<any>
-    
+          let headers = new HttpHeaders();
+          headers = headers.append('Content-type', 'application/x-www-form-urlencoded')
+          
+          let x = this.httpClient.post('http://localhost:51680/oauth/token','username='+email+'&password='+password+'&grant_type=password', {"headers": headers}) as Observable<any>
           x.subscribe(
             res => {
               console.log(res.access_token);
@@ -51,5 +49,4 @@ export class LoginOperationsService {
         }
       }
 
-  //log out
 }

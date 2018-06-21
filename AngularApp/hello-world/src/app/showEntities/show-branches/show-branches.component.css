@@ -1,0 +1,69 @@
+div{
+    font-size: 18px;
+    margin-bottom: 10px;
+    word-wrap: break-word; 
+}
+
+img{
+    margin-bottom: 20px;
+}
+
+h2{
+    margin-bottom: 40px;
+    color: rgb(216, 96, 53);
+}
+
+#branchContainer{
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+#ser{
+    margin-bottom: 50px;
+}
+
+button{
+    background-color: antiquewhite;
+}
+
+div.groove {
+    border-style: groove;
+    border-color: coral;
+    background-color: lightsalmon;
+    width: 600px;
+    padding: 20px;
+    margin-left: 40px;
+}
+
+#title{
+    font-size: 22px;
+}
+
+#UDBtn{
+    float: right;
+    background-color:antiquewhite;
+    margin-left: 20px
+}
+
+.pagination {
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    text-align: center;
+    border-top: 1px dotted #979696;
+    padding-top: 5px; }
+    .pagination ul {
+      margin: 0 auto;
+      display: inline-block; }
+      .pagination ul li {
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #ececec; }
+        .pagination ul li.last {
+          border-right: none; }
+        .pagination ul li a {
+          padding: 0 10px;
+          display: block;
+          color: #f67d34; }
+          .pagination ul li a:hover {
+            text-decoration: underline; }

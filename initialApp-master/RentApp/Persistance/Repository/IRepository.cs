@@ -20,5 +20,6 @@ namespace RentApp.Persistance.Repository
         void RemoveRange(IEnumerable<TEntity> entities);
 
         void Update(TEntity entity);
+        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
     }
 }

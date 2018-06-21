@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpParams, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -23,25 +23,44 @@ export class ServiceOperations {
     return Observable.throw(errorMessage);
   }
 
-   getMethodDemo(): Observable<any> {
-    return this.http.get('http://localhost:51680/api/Services')
-    .map(this.parseData)
-    .catch(this.handleError);
+  getMethodDemo(): Observable<any> {
+    return this.httpClient.get('http://localhost:51680/api/Services');
   }
 
   getOneService(id): Observable<any> {
-    return this.http.get('http://localhost:51680/api/Services/GetService?id='+ id)
-    .map(this.parseData)
-    .catch(this.handleError);
+    return this.httpClient.get('http://localhost:51680/api/Services/GetService?id='+ id);
   }
   
-  postMethodDemo(service): Observable<any> {    
+  postMethodDemo(service): Observable<any> {
     return this.httpClient.post("http://localhost:51680/api/Services/PostService", service);
   }
   
-  getServiceBranches(id): Observable<any> {
-    return this.http.get('http://localhost:51680/api/Branches?serviceId='+id)
-    .map(this.parseData)
-    .catch(this.handleError);
+  getServiceBranches(id,pageIndex,pageSize): Observable<any> {
+    return this.httpClient.get('http://localhost:51680/api/Branches?serviceId='+id+'&pageIndex='+pageIndex+"&pageSize="+pageSize);
+  }
+
+  getServiceBranchesNoPag(id): Observable<any> {
+    return this.httpClient.get('http://localhost:51680/api/Branches?serviceId='+id);
+  }
+
+  putMethodDemo(id,service): Observable<any> {  
+    return this.httpClient.put("http://localhost:51680/api/Services/"+id, service);
+  }
+
+  deleteMethodDemo(id): Observable<any> {  
+    return this.httpClient.delete("http://localhost:51680/api/Services/"+id)
+  
+  }
+
+  getPagination(pageIndex,pageSize): Observable<any> {
+    return this.httpClient.get('http://localhost:51680/api/Services?pageIndex='+pageIndex+"&pageSize="+pageSize);
+  }
+
+  approveService(id, name):Observable<any>
+  {
+    return this.httpClient.post("http://localhost:51680/api/Notify/NotifyAdmins?serviceName="+name+"&id="+id,"");
+  }
+  getMediumGrade(id): Observable<any> {
+    return this.httpClient.get('http://localhost:51680/api/Services?ServiceGradeid='+id);
   }
 }

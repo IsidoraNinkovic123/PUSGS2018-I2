@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace RentApp.Persistance.Repository
@@ -54,6 +55,11 @@ namespace RentApp.Persistance.Repository
         {
             context.Set<TEntity>().Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
+
+        }
+        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
+        {
+            return context.Set<TEntity>().FirstOrDefault(predicate);
         }
     }
 }

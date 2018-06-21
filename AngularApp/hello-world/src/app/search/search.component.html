@@ -1,0 +1,98 @@
+<div id="content">
+    <h2>Search</h2>
+    <form #f="ngForm" (ngSubmit)="onSubmitS(f.value, f)" class="groove">
+    <div class="form-group">
+      <div class="col-sm"><label for="s" >Search by : </label></div>
+      <div class="col-sm"><input type="text" name="s" [(ngModel)]="s"></div>
+    </div>
+    <button type="submit" class="glyphicon glyphicon-search" ></button>
+  </form>
+
+  <br />
+  <h2>Filter</h2>
+    <form #f="ngForm" (ngSubmit)="onSubmitF(f.value, f)" class="groove">
+      <div class="form-group">
+        <div class="col-sm"><label for="Service">Service</label></div>
+        <select name="ServiceId" ngModel (change)="onChange($event.target.value)">
+            <option *ngFor="let service of services" [ngValue]="service.Id">{{service.Name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="col-sm"><label for="Branch">Branch</label></div>
+        <select name="BranchId" ngModel>
+            <option *ngFor="let branch of branches" [ngValue]="branch.Id">{{branch.Address}}</option>
+        </select>
+      </div>
+        <div class="form-group">
+          <div class="col-sm"><label for="TypeId">Type</label></div>
+          <select name="TypeId" ngModel>
+              <option *ngFor="let type of types" [ngValue]="type.Id">{{type.Name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="col-sm"><label for="Manufactor">Manufactor</label></div>
+          <div class="col-sm"><input type="text" name="Manufactor" ngModel></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm"><label for="Model">Model</label></div>
+            <div class="col-sm"><input type="text" name="Model" ngModel></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm"><label for="Year">Year</label></div>
+            <div class="col-sm"><input type="date" name="Year" min="1900" max="2018" ngModel></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm"><label for="Description">Description</label></div>
+            <div class="col-sm"><input type="text" name="Description" ngModel></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm"><label for="PricePerHour">Price range</label></div>
+            <div class="col-sm">
+              <input type="number" name="Price1" ngModel>&nbsp;-&nbsp;
+              <input type="number" name="Price2" ngModel>
+            </div>
+        </div>
+      <button type="submit"class="glyphicon glyphicon-search" ></button>
+    </form>
+
+    <br /> <br />
+    
+    <h3>Search results</h3>
+    <p *ngIf="showVehicles==undefined || showVehicles.length==0">There are no vehicles that mach search parameters.</p>
+    <div *ngFor="let vehicle of showVehicles" id="bran"  class="groove2">
+        <div *ngIf="!vehicle.Unavaliable">
+          <div>Type:  {{vehicle.Type.Name}}
+              <button id="rent" class="btn btn-dark" [routerLink]="['/rent/'+ vehicle.Id + '/' + vehicle.Branch.ServiceId]">Rent</button>
+          </div>
+          <div>Model: {{vehicle.Model}}</div>
+          <div>Manufactor:  {{vehicle.Manufactor}} </div>
+          <div>Year:  {{vehicle.Year}}</div>
+          <div>Price per hour:  {{vehicle.PricePerHour}}</div>
+          <div>Description:  {{vehicle.Description}}</div>
+
+          <div id="imgs">
+          <span *ngFor="let i of vehicle.ImgArray" >
+              <img [src]="i" height="150" width="200"/>&nbsp;
+          </span>
+        </div>
+        </div>
+    </div> 
+
+    <div class="pagination">
+      <ul>
+          <li>
+              <a (click)="pagination(0)">1</a>
+          </li>
+          <li >
+              <a (click)="pagination(1)">2</a>
+          </li>
+          <li >
+              <a (click)="pagination(2)" >3</a>
+          </li>
+          <li class="last" >
+              <a (click)="pagination(pageNum+1)">Next</a>
+          </li>
+      </ul>
+  </div>
+  </div> 
+

@@ -1,0 +1,106 @@
+div{
+    font-size: 18px;
+    margin-bottom: 10px;
+    word-wrap: break-word; 
+}
+
+
+
+h2{
+    margin-bottom: 40px;
+    color: rgb(216, 96, 53);
+}
+
+
+button{
+    background-color: lightsalmon;
+   
+}
+
+div.groove {
+    border-style: groove;
+    border-color: coral;
+    background-color: lightsalmon;
+    width: 600px;
+    padding: 20px;
+}
+
+div.groove2 {
+    border-style: groove;
+    border-color: coral;
+    background-color:antiquewhite;
+    width: 600px;
+    padding: 20px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+}
+
+#title{
+    font-size: 22px;
+}
+
+
+input[type=text] {
+    width: 300px;
+}
+
+input[type=number] {
+    width: 100px;
+}
+
+#imgs{
+    background-color:antiquewhite;
+    overflow-y: auto;
+    height: 180px;
+    width: 240px;
+}
+
+h3{
+    color: rgb(216, 96, 53); 
+    margin-bottom: 20px;
+}
+
+form.groove {
+    border-style: groove;
+    border-color: coral;
+    background-color: lightsalmon;
+    width: 500px;
+    padding: 20px;
+}
+
+label{
+    font-size: 18px;
+}
+
+#rent{
+    float: right;
+}
+
+#content{
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.pagination {
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    text-align: center;
+    border-top: 1px dotted #979696;
+    padding-top: 5px; }
+    .pagination ul {
+      margin: 0 auto;
+      display: inline-block; }
+      .pagination ul li {
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #ececec; }
+        .pagination ul li.last {
+          border-right: none; }
+        .pagination ul li a {
+          padding: 0 10px;
+          display: block;
+          color: #f67d34; }
+          .pagination ul li a:hover {
+            text-decoration: underline; }
+

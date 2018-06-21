@@ -1,0 +1,47 @@
+input[type=text] {
+    width: 300px;
+}
+
+h2{
+    margin-bottom: 40px;
+    color: rgb(216, 96, 53);
+}
+
+form.groove {
+    border-style: groove;
+    border-color: coral;
+    background-color: lightsalmon;
+    width: 500px;
+    padding: 20px;
+}
+
+label{
+    font-size: 18px;
+}
+
+input[type=submit]{
+    background-color: rgb(216, 96, 53);
+}
+
+#content{
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+input:invalid{
+    border-color:red; 
+}
+
+#div1{
+    float: right;
+    width:70%; 
+}
+#div2{
+    float: left;
+    width: auto;
+}
+#map{
+    height: 500px; 
+    width: 500px;
+    align-self: center;
+}

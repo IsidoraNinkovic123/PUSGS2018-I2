@@ -1,0 +1,25 @@
+<div id="branchContainer">
+  <h2>Branches &nbsp; &nbsp; <button [routerLink]="['/addBranch/'+ Id]" class="btn btn-dark" *ngIf="showMA()">Add new </button></h2>
+  <div *ngFor="let branch of branches" id="ser"  class="groove">
+      <img [src]="branch.Logo" height="100" width="120"/>&nbsp;
+      <div>Address:  {{branch.Address}}</div>
+      <div>Latitude:  {{branch.Latitude}} &nbsp; &nbsp; &nbsp;  Longitude:  {{branch.Longitude}}</div>
+      <button [routerLink]="['/branch/'+ branch.Id]" class="btn btn-dark" >Open</button>
+  </div>
+  <div class="pagination">
+    <ul>
+        <li>
+            <a (click)="pagination(1)">1</a>
+        </li>
+        <li >
+            <a (click)="pagination(2)">2</a>
+        </li>
+        <li >
+            <a (click)="pagination(3)" >3</a>
+        </li>
+        <li class="last" >
+            <a (click)="pagination(pageNum+1)">Next</a>
+        </li>
+    </ul>
+</div>
+</div>

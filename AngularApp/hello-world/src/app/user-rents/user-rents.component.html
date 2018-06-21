@@ -1,0 +1,22 @@
+<div><h1>Reservations</h1> </div><br>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Vehicle</th>
+      <th>Branch to return</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rent of rents">
+      <td><input type="date" [ngModel]="rent.Start | date:'yyyy-MM-dd'" name="Start" (ngModelChange)="rent.Start=$event" required></td>
+      <td><input type="date"  [ngModel]="rent.End | date:'yyyy-MM-dd'" name="End" (ngModelChange)="rent.End=$event" required></td>
+      <td>{{rent.Vehicle.Manufactor}}&nbsp;{{rent.Vehicle.Model}}</td>
+      <td>{{rent.ReturnBranch.Address}}</td>
+    
+      <td><button class="btn btn-dark btn-sm" (click)="update(rent)" id="UDBtn">Update</button></td>
+      <td><button class="btn btn-dark btn-sm" (click)="delete(rent.Id)" id="UDBtn">Cancel</button></td>
+    </tr>
+  </tbody>
+</table>

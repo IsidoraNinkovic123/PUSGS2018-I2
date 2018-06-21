@@ -1,42 +1,48 @@
+
 <div id="content">
     <h2>User profile</h2>
-    <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove"> 
-      <div class="form-group">
-            <label for="Image">Profile picture</label>
-            <div id=imageDiv>
-            <img src={{user.Image}} width="120" height="120"/>
-            <input type="file" accept="image/*" name="Image" [(ngModel)]=user.Image>
-            </div>
-      </div>
+    <form #f="ngForm" class="groove"> 
+        <label>Profile picture</label><br/>
+        <img [src]="user.PersonalDocument" width="200" height="150"/>
+        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" enctype = "multipart/form-data" multiple />
+
+        <button type="button" class="btn btn-success btn-s" 
+        (click)="uploader.uploadAll()" 
+        [disabled]="!uploader.getNotUploadedItems().length" >
+            Upload an Image
+      </button>
+  </form>
+    <form ngNativeValidate #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove"> 
       <div class="form-group">
         <div class="col-sm"><label for="FullName">Full name</label></div>
-        <div class="col-sm"><input type="text" name="FullName" [(ngModel)]="user.FullName"></div>
+        <div class="col-sm"><input type="text" name="FullName" [(ngModel)]="user.FullName" required></div>
       </div>
       <div class="form-group">
           <div class="col-sm"><label for="Birthday">Birthday</label></div>
-          <div class="col-sm"><input type="date" name="Birthday" [(ngModel)]="user.Birthday"></div>
+         
+          <div class="col-sm"><input type="date" [ngModel]="user.Birthday | date:'yyyy-MM-dd'" name="Birthday" (ngModelChange)="user.Birthday=$event" required></div>
       </div>
       <div class="form-group">
           <div class="col-sm"><label for="Email">Email</label></div>
-          <div class="col-sm"><input type="email" name="Email" [(ngModel)]="user.Email"></div>
+          <div class="col-sm"><input type="email" name="Email" [(ngModel)]="user.Email" required></div>
       </div>
       <input type="submit"class="btn btn-dark" value="Update">
    </form>
 
    <div><button id=toggleButton  (click)="toggle()" class="btn btn-dark">Change password</button></div>
    <div *ngIf="isVisible">
-       <form #f="ngForm" (ngSubmit)="onSubmitPass(f.value, f)" class="groove"> 
+       <form ngNativeValidate #f="ngForm" (ngSubmit)="onSubmitPass(f.value, f)" class="groove"> 
            <div class="form-group">
-               <div class="col-sm"><label for="Password">Old Password</label></div>
-               <div class="col-sm"><input type="password" name="Password"  ngModel></div>
+               <div class="col-sm"><label for="OldPassword">Old Password</label></div>
+               <div class="col-sm"><input type="password" name="OldPassword"  ngModel required></div>
            </div>
            <div class="form-group">
-               <div class="col-sm"><label for="ConfirmedPassword">New  Password</label></div>
-               <div class="col-sm"><input type="password" name="ConfirmedPassword" ngModel></div>
+               <div class="col-sm"><label for="NewPassword">New  Password</label></div>
+               <div class="col-sm"><input type="password" name="NewPassword" ngModel required></div>
            </div>
            <div class="form-group">
-                   <div class="col-sm"><label for="OldPassword">Confirmed Password</label></div>
-                   <div class="col-sm"><input type="password" name="OldPassword"  ngModel></div>
+                   <div class="col-sm"><label for="ConfirmPassword">Confirm Password</label></div>
+                   <div class="col-sm"><input type="password" name="ConfirmPassword"  ngModel required></div>
            </div>
            <input type="submit"class="btn btn-dark" value="Change">
        </form>

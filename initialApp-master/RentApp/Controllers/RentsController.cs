@@ -7,29 +7,39 @@ using RentApp.Models.Entities;
 using RepoDemo.Persistance.UnitOfWork;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
+using System.Linq;
+using System;
 
 namespace RentApp.Controllers
 {
     public class RentsController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
-        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+        public static readonly object LockObject = new object();
 
-        public RentsController(IUnitOfWork unitOfWork, ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        public RentsController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            AccessTokenFormat = accessTokenFormat;
         }
+
 
         // GET: api/Rents
         public IEnumerable<Rent> GetRents()
         {
-            return unitOfWork.Rents.GetAll();
+           int id= unitOfWork.AppUsers.GetAll().Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id;
+            List<Rent> rents=new List<Rent>(unitOfWork.Rents.GetAll().Where(r=>r.UserId==id));
+          
+            for (int i = 0; i < rents.Count; i++)
+            {
+                rents[i].Vehicle = unitOfWork.Vehicles.Get(rents[i].VehicleId);
+                rents[i].ReturnBranch = unitOfWork.Branches.Get(rents[i].ReturnBranchId);
+            }
+
+            return rents;
         }
 
+
         // GET: api/Rents/5
-       // [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [ResponseType(typeof(Rent))]
         public IHttpActionResult GetRent(int id)
         {
@@ -42,13 +52,15 @@ namespace RentApp.Controllers
             return Ok(rent);
         }
 
+
         // PUT: api/Rents/5
+        [Authorize(Roles = "AppUser")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutRent(int id, Rent rent)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Please fill out all fields and enter correct values.");
             }
 
             if (id != rent.Id)
@@ -56,42 +68,97 @@ namespace RentApp.Controllers
                 return BadRequest();
             }
 
-            try
+
+            if (DateTime.Compare((DateTime)rent.Start, (DateTime)rent.End) > 0)
             {
-                unitOfWork.Rents.Update(rent);
-                unitOfWork.Complete();
+                return BadRequest("End date must be smaller then start date.");
             }
-            catch (DbUpdateConcurrencyException)
+            /*else if(DateTime.Compare((DateTime)rent.End, DateTime.Now) < 0)
             {
-                if (!RentExists(id))
+                return BadRequest("End date is not valid.");
+            }*/
+
+            int count = unitOfWork.Rents.GetAll().Where(r => r.VehicleId == rent.VehicleId && (r.End < rent.Start || rent.End < r.Start)).Count();
+            int countV = unitOfWork.Rents.GetAll().Where(r => r.VehicleId == rent.VehicleId).Count();
+            if (count > 0 || countV == 1)
+            {
+                try
                 {
-                    return NotFound();
+                    Rent r = unitOfWork.Rents.Get(id);
+                    r.End = rent.End;
+                    r.Start = rent.Start;
+
+                    unitOfWork.Rents.Update(r);
+                    unitOfWork.Complete();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!RentExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+
+                return Ok("Rent is succesfully updated.");
+            }
+            else
+            {
+                return BadRequest("Vehicle is rented in that period.");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
+
         // POST: api/Rents
+        [Authorize(Roles = "AppUser")]
         [ResponseType(typeof(Rent))]
         public IHttpActionResult PostRent(Rent rent)
         {
-            if (!ModelState.IsValid)
+            lock (LockObject)
             {
-                return BadRequest(ModelState);
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Please fill out all fields and enter correct values.");
+                }
+
+                if (DateTime.Compare((DateTime)rent.Start, (DateTime)rent.End) > 0)
+                {
+                    return BadRequest("End date must be smaller then start date.");
+                }
+                /*else if(DateTime.Compare((DateTime)rent.End, DateTime.Now) < 0)
+                {
+                    return BadRequest("End date is not valid.");
+                }*/
+
+                int count = unitOfWork.Rents.GetAll().Where(r => r.VehicleId == rent.VehicleId && (r.End < rent.Start || rent.End < r.Start)).Count();
+                int countV = unitOfWork.Rents.GetAll().Where(r => r.VehicleId == rent.VehicleId).Count();
+                if (count > 0 || countV == 0)
+                {
+                    unitOfWork.Rents.Add(rent);
+
+                    Vehicle vehicle = unitOfWork.Vehicles.Get(rent.VehicleId);
+                    vehicle.BranchId = rent.ReturnBranchId;
+
+                    unitOfWork.Vehicles.Update(vehicle);
+                    unitOfWork.Complete();
+
+                    return Ok("Rent of vehicle is succesfully made.");
+                }
+                else
+                {
+                    return BadRequest("Vehicle is rented in that period.");
+                }
             }
-
-            unitOfWork.Rents.Add(rent);
-            unitOfWork.Complete();
-
-            return CreatedAtRoute("DefaultApi", new { id = rent.Id }, rent);
         }
 
+
         // DELETE: api/Rents/5
+        [Authorize(Roles = "AppUser")]
         [ResponseType(typeof(Rent))]
         public IHttpActionResult DeleteRent(int id)
         {
@@ -106,6 +173,7 @@ namespace RentApp.Controllers
 
             return Ok(rent);
         }
+
 
         private bool RentExists(int id)
         {

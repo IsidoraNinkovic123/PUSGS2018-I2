@@ -1,35 +1,42 @@
 <div id="content">
     <h2>Add vehicle</h2>
-    <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove"> 
+
+    <form #f="ngForm" class="groove"> 
+            <input type="file" name="photo" ng2FileSelect [uploader]="uploader" enctype = "multipart/form-data" multiple />
+
+            <button type="button" class="btn btn-success btn-s" 
+            (click)="uploader.uploadAll()" 
+            [disabled]="!uploader.getNotUploadedItems().length" >
+                Upload an Image
+          </button>
+      </form>
+      
+    <form #f="ngForm" ngNativeValidate (ngSubmit)="onSubmit(f.value, f)" class="groove"> 
       <div class="form-group">
-        <div class="col-sm"><label for="Type">Type</label></div>
-        <select (change)="selectItem($event.target.value)" name="Type">
-            <option *ngFor="let type of types" value={{type}}>{{type.Name}}</option>
+        <div class="col-sm"><label for="TypeId">Type</label></div>
+        <select name="TypeId" ngModel required>
+            <option *ngFor="let type of types" [ngValue]="type.Id">{{type.Name}}</option>
         </select>
       </div>
       <div class="form-group">
         <div class="col-sm"><label for="Manufactor">Manufactor</label></div>
-        <div class="col-sm"><input type="text" name="Manufactor" ngModel></div>
+        <div class="col-sm"><input type="text" name="Manufactor" ngModel required></div>
       </div>
       <div class="form-group">
           <div class="col-sm"><label for="Model">Model</label></div>
-          <div class="col-sm"><input type="text" name="Model" ngModel></div>
+          <div class="col-sm"><input type="text" name="Model" ngModel required></div>
       </div>
       <div class="form-group">
           <div class="col-sm"><label for="Year">Year</label></div>
-          <div class="col-sm"><input type="number" name="Year" min="1900" max="2018" ngModel></div>
+          <div class="col-sm"><input type="number" min="1930" max="2018" name="Year" ngModel  required ></div>
       </div>
       <div class="form-group">
           <div class="col-sm"><label for="Description">Description</label></div>
-          <div class="col-sm"><input type="text" name="Description" ngModel></div>
+          <div class="col-sm"><input type="text" name="Description" ngModel required></div>
       </div>
       <div class="form-group">
           <div class="col-sm"><label for="PricePerHour">Price per hour</label></div>
-          <div class="col-sm"><input type="number" name="PricePerHour" ngModel></div>
-      </div>
-      <div class="form-group">
-          <label for="Images">Images</label>
-          <input type="file" (change)="fileChange($event)" placeholder="Upload files" name="Images" multiple ngModel>
+          <div class="col-sm"><input type="number" name="PricePerHour" ngModel required></div>
       </div>
       <input type="submit"class="btn btn-dark" value="Add">
     </form>

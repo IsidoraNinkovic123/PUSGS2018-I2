@@ -13,14 +13,12 @@ namespace RentApp.Controllers
     public class TypeOfVehiclesController : ApiController
     {
         private readonly IUnitOfWork unitOfWork;
-        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        public TypeOfVehiclesController(IUnitOfWork unitOfWork, ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        public TypeOfVehiclesController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            AccessTokenFormat = accessTokenFormat;
         }
+
 
         // GET: api/TypeOfVehicles
         public IEnumerable<TypeOfVehicle> GetTypeOfVehicles()
@@ -28,8 +26,8 @@ namespace RentApp.Controllers
             return unitOfWork.TypeOfVehicles.GetAll();
         }
 
+
         // GET: api/TypeOfVehicles/5
-        //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [ResponseType(typeof(TypeOfVehicle))]
         public IHttpActionResult GetTypeOfVehicle(int id)
         {
@@ -42,13 +40,15 @@ namespace RentApp.Controllers
             return Ok(typeOfVehicle);
         }
 
+
         // PUT: api/TypeOfVehicles/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutTypeOfVehicle(int id, TypeOfVehicle typeOfVehicle)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Please fill out all fields and enter correct values.");
             }
 
             if (id != typeOfVehicle.Id)
@@ -76,13 +76,15 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+
         // POST: api/TypeOfVehicles
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(TypeOfVehicle))]
         public IHttpActionResult PostTypeOfVehicle(TypeOfVehicle typeOfVehicle)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Please fill out all fields and enter correct values.");
             }
 
             unitOfWork.TypeOfVehicles.Add(typeOfVehicle);
@@ -91,7 +93,9 @@ namespace RentApp.Controllers
             return CreatedAtRoute("DefaultApi", new { id = typeOfVehicle.Id }, typeOfVehicle);
         }
 
+
         // DELETE: api/TypeOfVehicles/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(TypeOfVehicle))]
         public IHttpActionResult DeleteTypeOfVehicle(int id)
         {
@@ -106,6 +110,7 @@ namespace RentApp.Controllers
 
             return Ok(typeOfVehicle);
         }
+
 
         private bool TypeOfVehicleExists(int id)
         {

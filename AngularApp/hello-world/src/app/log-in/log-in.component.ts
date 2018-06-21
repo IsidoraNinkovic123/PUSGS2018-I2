@@ -16,7 +16,6 @@ export class LogInComponent implements OnInit {
   }
 
   onSubmit(login: LogIn,form: NgForm) {
-    debugger;
     this.loginSevice.getTheToken(login.Email,login.Password);
   }
 

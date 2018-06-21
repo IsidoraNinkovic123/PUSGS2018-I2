@@ -1,15 +1,31 @@
 <div id="serviceContainer">
-  <h2>Available services &nbsp; &nbsp;<button [routerLink]="['/addService']" class="btn btn-dark">Add new </button></h2>
+  <h2>Available services &nbsp; &nbsp;<button [routerLink]="['/addService']" class="btn btn-dark" *ngIf="showMA()">Add new </button></h2>
   <div>
     <div *ngFor="let service of services">
-      <div id="ser" class="groove">
+      <div id="ser" class="groove" *ngIf="service.Activated">
         <div>
-          <img [src]="service.Logo" height="50" width="50"/>&nbsp;
+          <img [src]="service.Logo" height="100" width="120"/>&nbsp;
           <a [routerLink]="['/service/'+ service.Id]">{{service.Name}}</a>
         </div>
         <div>Email:  {{service.Email}}</div>
         <div>Description:  {{service.Description}}</div>
       </div>
+    </div>
+    <div class="pagination">
+        <ul>
+            <li>
+                <a (click)="pagination(1)">1</a>
+            </li>
+            <li >
+                <a (click)="pagination(2)">2</a>
+            </li>
+            <li >
+                <a (click)="pagination(3)" >3</a>
+            </li>
+            <li class="last" >
+                <a (click)="pagination(pageNum+1)">Next</a>
+            </li>
+        </ul>
     </div>
   </div>
 </div>

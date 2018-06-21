@@ -5,8 +5,13 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using RentApp.Models.Entities;
 using RepoDemo.Persistance.UnitOfWork;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Net.Http;
+using RentApp.Persistance;
+using System.Linq;
 using System.Web;
-using System;
+using System.Security.Principal;
 
 namespace RentApp.Controllers
 {
@@ -23,30 +28,26 @@ namespace RentApp.Controllers
         {
             return unitOfWork.AppUsers.GetAll();
         }
+      
 
-        [ResponseType(typeof(AppUser))]
-        public IHttpActionResult GetAppUser(int id)
-        {
-            AppUser appUser = unitOfWork.AppUsers.Get(id);
-            if (appUser == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(appUser);
-        }
-
+        [Authorize(Roles = "AppUser")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutAppUser(int id, AppUser appUser)
         {
+            AppUser loggedUser = unitOfWork.AppUsers.GetActiveUser(User.Identity.Name);
+            if(loggedUser.Id != id)
+            {
+                return BadRequest("Nonauthorized change\nOnly owner of the profile can change profile information.");
+            }
+
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Please fill out all fields and enter correct values.");
             }
 
             if (id != appUser.Id)
             {
-                return BadRequest();
+                return BadRequest("Nonauthorized change. Only owner of the profile can change profile information.");
             }
 
             try
@@ -69,9 +70,11 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult PostAppUser(AppUser appUser)
         {
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -82,6 +85,7 @@ namespace RentApp.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = appUser.Id }, appUser);
         }
+
 
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult DeleteAppUser(int id)
@@ -97,6 +101,7 @@ namespace RentApp.Controllers
 
             return Ok(appUser);
         }
+
 
         private bool AppUserExists(int id)
         {

@@ -2,7 +2,6 @@ import {
   Injectable,  
   EventEmitter  
 } from '@angular/core';   
-import {GetClockTime} from '../models/get-clock-time'
 
 
 declare  var $: any;  
@@ -15,31 +14,34 @@ export class SignalRService {
   private proxyName: string = 'notifications';  
   private connection: any;  
   // create the Event Emitter  
-  public messageReceived: EventEmitter < GetClockTime > ;  
+  public notificationReceived: EventEmitter < string > ;  
   public connectionEstablished: EventEmitter < Boolean > ;  
   public connectionExists: Boolean;  
   constructor() {  
       debugger;  
       // Constructor initialization  
       this.connectionEstablished = new EventEmitter < Boolean > ();  
-      this.messageReceived = new EventEmitter < GetClockTime > ();  
+      this.notificationReceived = new EventEmitter < string > ();  
       this.connectionExists = false;  
       // create hub connection  
-      this.connection = $.hubConnection("http://localhost:51680");  
+      this.connection = $.hubConnection("http://localhost:51680");
+      var jwt=localStorage.jwt;
+      this.connection.qs= {'token' : 'Barer' + jwt} 
       // create new proxy as name already given in top  
       this.proxy = this.connection.createHubProxy(this.proxyName);  
       // register on server events  
+      // call the connecion start method to start the connection to send and receive events. 
       this.registerOnServerEvents();  
-      // call the connecion start method to start the connection to send and receive events.  
       this.startConnection();  
   }  
-  // method to hit from client  
-  public sendTime() {  
-      // server side hub method using proxy.invoke with method name pass as param  
-      this.proxy.invoke('GetRealTime');  
-  }  
+  
+  public sendHello() {  
+    // server side hub method using proxy.invoke with method name pass as param  
+    this.proxy.invoke('Hello');  
+}  
   // check in the browser console for either signalr connected or not  
   private startConnection(): void {  
+     
       this.connection.start().done((data: any) => {  
           console.log('Now connected ' + data.transport.name + ', connection ID= ' + data.id);  
           this.connectionEstablished.emit(true);  
@@ -49,11 +51,13 @@ export class SignalRService {
           this.connectionEstablished.emit(false);  
       });  
   }  
+
+
   private registerOnServerEvents(): void {  
-      debugger;  
-      this.proxy.on('setRealTime', (data: GetClockTime) => {  
-          console.log('received in SignalRService: ' + JSON.stringify(data));  
-          this.messageReceived.emit(data);  
-      });  
+    debugger;
+    this.proxy.on('clickNotification', (data: string) => {  
+        console.log('received notification: ' + data);  
+        this.notificationReceived.emit(data);  
+    }); 
   }  
 }  

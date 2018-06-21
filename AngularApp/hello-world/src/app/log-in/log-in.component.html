@@ -1,13 +1,13 @@
 <div id="content">
   <h2>Log in</h2>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove">
+  <form ngNativeValidate #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove">
     <div class="form-group">
       <div class="col-sm"><label for="Email">Email</label></div>
-      <div class="col-sm"><input type="text" name="Email" ngModel></div>
+      <div class="col-sm"><input type="text" name="Email" ngModel required></div>
     </div>
     <div class="form-group">
       <div class="col-sm"><label for="Password">Password</label></div>
-      <div class="col-sm"><input type="password" name="Password" ngModel></div>
+      <div class="col-sm"><input type="password" name="Password" ngModel required></div>
     </div>
     <input type="submit"class="btn btn-dark" value="Log in">
   </form>

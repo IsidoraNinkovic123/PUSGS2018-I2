@@ -7,4 +7,24 @@
       </div>
       <input type="submit"class="btn btn-dark" value="Add">
     </form>
+
+    <br /> <br />
+    <h3>Types</h3>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let type of types">
+          <td contenteditable [textContent]="type.Name" (input)="type.Name=$event.target.textContent">{{type.Name}}</td>
+          <td><button class="btn btn-dark btn-sm" (click)="update(type)" id="UDBtn">Update</button></td>
+          <td><button class="btn btn-dark btn-sm" (click)="delete(type.Id)" id="UDBtn">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+
   </div> 

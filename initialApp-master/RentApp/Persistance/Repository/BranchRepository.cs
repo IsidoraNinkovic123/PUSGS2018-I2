@@ -13,7 +13,8 @@ namespace RentApp.Persistance.Repository
 
         public IEnumerable<Branch> GetAll(int pageIndex, int pageSize)
         {
-            return RADBContext.Branches.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+            List<Branch> branches = new List<Branch>(RADBContext.Branches.OrderBy(b=>b.Address).Skip((pageIndex - 1) * pageSize).Take(pageSize));
+            return branches;
         }
 
         protected RADBContext RADBContext { get { return context as RADBContext; } }

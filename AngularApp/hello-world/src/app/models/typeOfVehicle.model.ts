@@ -1,7 +1,6 @@
 export class TypeOfVehicle {
     Name: string;
+    Id:number;
 
-    constructor(name: string){
-        this.Name = name;
-    }
+    constructor(){}
 }

@@ -1,10 +1,13 @@
-﻿using RentApp.Persistance.Repository;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using RentApp.Models.Entities;
+using RentApp.Persistance;
+using RentApp.Persistance.Repository;
 using System.Data.Entity;
 using Unity.Attributes;
 
 namespace RepoDemo.Persistance.UnitOfWork
 {
-    public class DemoUnitOfWork : IUnitOfWork
+    public class DemoUnitOfWork : IUnitOfWork 
     {
         private readonly DbContext _context;
       
@@ -25,6 +28,15 @@ namespace RepoDemo.Persistance.UnitOfWork
 
         [Dependency]
         public IVehicleRepository Vehicles { get; set; }
+
+        [Dependency]
+        public ICommentRepository Comments { get; set; }
+
+        [Dependency]
+        public IGradeRepository Grades { get; set; }
+
+        [Dependency]
+        public INotificationRepository Notifications { get; set; }
 
 
         public DemoUnitOfWork(DbContext context)

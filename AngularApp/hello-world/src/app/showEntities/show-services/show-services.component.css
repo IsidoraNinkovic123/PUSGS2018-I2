@@ -48,3 +48,26 @@ a:hover{
 button{
     background-color: lightsalmon;
 }
+
+.pagination {
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    text-align: center;
+    border-top: 1px dotted #979696;
+    padding-top: 5px; }
+    .pagination ul {
+      margin: 0 auto;
+      display: inline-block; }
+      .pagination ul li {
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #ececec; }
+        .pagination ul li.last {
+          border-right: none; }
+        .pagination ul li a {
+          padding: 0 10px;
+          display: block;
+          color: #f67d34; }
+          .pagination ul li a:hover {
+            text-decoration: underline; }

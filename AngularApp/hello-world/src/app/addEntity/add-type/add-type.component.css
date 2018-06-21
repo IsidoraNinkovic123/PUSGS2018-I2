@@ -7,6 +7,10 @@ h2{
     color: rgb(216, 96, 53);
 }
 
+h3{
+    color: rgb(216, 96, 53); 
+}
+
 form.groove {
     border-style: groove;
     border-color: coral;
@@ -27,3 +31,17 @@ input[type=submit]{
     margin-left: 30px;
     margin-top: 30px;
 }
+
+table {
+    table-layout: auto;
+    border-collapse: collapse;
+    width: auto;
+    background-color:lightsalmon;
+    border-color: coral;
+}
+
+input:invalid{
+    border-color:red; 
+}
+
+

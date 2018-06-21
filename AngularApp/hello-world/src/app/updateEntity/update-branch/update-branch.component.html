@@ -1,0 +1,46 @@
+<div id="content">
+    <h2>Update branch</h2>
+    <div id="div1">
+        <agm-map id="map" [latitude]="branch.Latitude" [longitude]="branch.Longitude" [zoom]="18" (mapClick)="placeMarker($event)">
+          
+           <!-- Postavljamo markere -->
+           <agm-marker [latitude]="branch.Latitude" [longitude]="branch.Longitude" [title]="branch.Address">
+       
+             <!-- Svakom markeru dodajemo info-window (Nije obavezno!)-->
+             <agm-info-window [latitude]="branch.Latitude" [longitude]="branch.Longitude" >
+             </agm-info-window>
+       
+           </agm-marker>
+         </agm-map>
+        </div>
+
+
+<div id="div2">
+    <form #f="ngForm" class="groove"> 
+        <img [src]="branch.Logo" height="100" width="120"/>
+        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" enctype = "multipart/form-data" />
+        <button type="button" class="btn btn-success btn-s" 
+        (click)="uploader.uploadAll()" 
+        [disabled]="!uploader.getNotUploadedItems().length" >
+            Upload an Image
+      </button>
+    </form>
+
+    <form ngNativeValidate #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove" enctype="multipart/form-data">
+      <div class="form-group">
+        <div class="col-sm"><label for="Address">Address</label></div>
+        <div class="col-sm"><input type="text" name="Address"  [(ngModel)]="branch.Address" required></div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm"><label for="Latitude">Latitude</label></div>
+        <div class="col-sm"><input type="number" name="Latitude" step="any"  [(ngModel)]="branch.Latitude" required></div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm"><label for="Longitude">Longitude</label></div>
+          <div class="col-sm"><input type="number" name="Longitude" step="any"  [(ngModel)]="branch.Longitude" required></div>
+        </div>
+      <input type="submit"class="btn btn-dark" value="Update">
+    </form>
+  </div>
+  </div> 
+  

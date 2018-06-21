@@ -20,8 +20,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -275,10 +275,16 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActiveUserController.cs" />
     <Compile Include="Controllers\AppUsersController.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotifyController.cs" />
     <Compile Include="Controllers\RentsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\TypeOfVehiclesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -288,40 +294,40 @@
     </Compile>
     <Compile Include="Hubs\NotificationsHub.cs" />
     <Compile Include="Migrations\201806031439020_Initial.cs" />
-    <Compile Include="Migrations\201806031439020_Initial.Designer.cs">
-      <DependentUpon>201806031439020_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806041020583_updated initial migration.cs" />
-    <Compile Include="Migrations\201806041020583_updated initial migration.Designer.cs" />
-    <Compile Include="Migrations\201806041040388_updated Rent.cs" />
-    <Compile Include="Migrations\201806041040388_updated Rent.Designer.cs" />
-    <Compile Include="Migrations\201806050654198_Strani kljuc izmena.cs" />
-    <Compile Include="Migrations\201806050654198_Strani kljuc izmena.Designer.cs" />
-    <Compile Include="Migrations\201806111003088_izmena stranog kljuca u branch entitetu.cs" />
-    <Compile Include="Migrations\201806111003088_izmena stranog kljuca u branch entitetu.Designer.cs">
-      <DependentUpon>201806111003088_izmena stranog kljuca u branch entitetu.cs</DependentUpon>
+    <Compile Include="Migrations\201806210938365_nova baza.cs" />
+    <Compile Include="Migrations\201806210938365_nova baza.Designer.cs">
+      <DependentUpon>201806210938365_nova baza.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\Branch.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
+    <Compile Include="Models\Entities\Grade.cs" />
+    <Compile Include="Models\Entities\Notification.cs" />
     <Compile Include="Models\Entities\RAIdentityUser.cs" />
     <Compile Include="Models\Entities\AppUser.cs" />
     <Compile Include="Models\Entities\Rent.cs" />
     <Compile Include="Models\Entities\Services.cs" />
     <Compile Include="Models\Entities\TypeOfVehicle.cs" />
     <Compile Include="Models\Entities\Vehicle.cs" />
+    <Compile Include="Models\Search.cs" />
     <Compile Include="Persistance\RADBContext.cs" />
     <Compile Include="Persistance\Repository\AppUserRepository.cs" />
     <Compile Include="Persistance\Repository\BranchRepository.cs" />
+    <Compile Include="Persistance\Repository\CommentRepository.cs" />
+    <Compile Include="Persistance\Repository\GradeRepository.cs" />
     <Compile Include="Persistance\Repository\IAppUserRepository.cs" />
     <Compile Include="Persistance\Repository\IBranchRepository.cs" />
+    <Compile Include="Persistance\Repository\ICommentRepository.cs" />
+    <Compile Include="Persistance\Repository\IGradeRepository.cs" />
+    <Compile Include="Persistance\Repository\INotificationRepository.cs" />
     <Compile Include="Persistance\Repository\IRentRepository.cs" />
     <Compile Include="Persistance\Repository\IRepository.cs" />
     <Compile Include="Persistance\Repository\IServiceRepository.cs" />
     <Compile Include="Persistance\Repository\ITypeOfVehicleRepository.cs" />
     <Compile Include="Persistance\Repository\IVehicleRepository.cs" />
+    <Compile Include="Persistance\Repository\NotificationRepository.cs" />
     <Compile Include="Persistance\Repository\RentRepository.cs" />
     <Compile Include="Persistance\Repository\Repository.cs" />
     <Compile Include="Persistance\Repository\ServiceRepository.cs" />
@@ -334,6 +340,8 @@
     <Compile Include="Providers\CustomJwtFormat.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Services\ISmtpService.cs" />
+    <Compile Include="Services\SmtpService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -343,7 +351,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\slika.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -398,7 +405,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
+    <Folder Include="Views\ActiveUser\" />
+    <Folder Include="Views\FileUpload\" />
+    <Folder Include="Views\Notify\" />
+    <Folder Include="Views\Search\" />
     <Folder Include="Views\Vehicles\" />
+    <Folder Include="Views\Verify\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -414,14 +427,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806031439020_Initial.resx">
-      <DependentUpon>201806031439020_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806041020583_updated initial migration.resx" />
-    <EmbeddedResource Include="Migrations\201806041040388_updated Rent.resx" />
-    <EmbeddedResource Include="Migrations\201806050654198_Strani kljuc izmena.resx" />
-    <EmbeddedResource Include="Migrations\201806111003088_izmena stranog kljuca u branch entitetu.resx">
-      <DependentUpon>201806111003088_izmena stranog kljuca u branch entitetu.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806210938365_nova baza.resx">
+      <DependentUpon>201806210938365_nova baza.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,5 @@
 ﻿using RentApp.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -17,5 +18,12 @@ namespace RentApp.Persistance.Repository
         //}
 
         protected RADBContext RADBContext { get { return context as RADBContext; } }
+
+        public AppUser GetActiveUser(string username)
+        {
+            var user = RADBContext.Users.Where(u => u.Email == username).FirstOrDefault();
+            var appUser = RADBContext.AppUsers.Where(u => u.Email == user.Email).FirstOrDefault();
+            return appUser;
+        }
     }
 }

@@ -10,6 +10,7 @@ using System;
 using System.Data.Entity;
 using System.Web.Http;
 using Unity;
+using Unity.AspNet.Mvc;
 using Unity.AspNet.WebApi;
 using Unity.Injection;
 using Unity.Lifetime;
@@ -54,7 +55,7 @@ namespace RentApp
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<DbContext, RADBContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<DbContext, RADBContext>(new PerRequestLifetimeManager());
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<ISecureDataFormat<AuthenticationTicket>, CustomJwtFormat>(new InjectionConstructor("http://localhost:51680"));
             container.RegisterType<IUserStore<RAIdentityUser>, UserStore<RAIdentityUser>>(new InjectionConstructor(typeof(DbContext)));
@@ -65,8 +66,9 @@ namespace RentApp
             container.RegisterType<ITypeOfVehicleRepository, TypeOfVehicleRepository>();
             container.RegisterType<IVehicleRepository, VehicleRepository>();
             container.RegisterType<IUnitOfWork, DemoUnitOfWork>();
-
-            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+            container.RegisterType<ICommentRepository, CommentRepository>();
+            container.RegisterType<IGradeRepository, GradeRepository>();
+            container.RegisterType<INotificationRepository, NotificationRepository>();
         }
     }
 }

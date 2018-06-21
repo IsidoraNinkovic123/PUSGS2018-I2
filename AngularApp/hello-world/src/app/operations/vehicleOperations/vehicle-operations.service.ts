@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response,RequestOptions,Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -24,17 +24,31 @@ export class VehicleOperationsService {
   }
 
   getMethodDemo(): Observable<any> {
-    return this.http.get('http://localhost:51680/api/Vehicles')
-    .map(this.parseData)
-    .catch(this.handleError);
+    return this.httpClient.get('http://localhost:51680/api/Vehicles');
   }
 
   postMethodDemo(vehicle): Observable<any> { 
     return this.httpClient.post("http://localhost:51680/api/Vehicles/PostVehicle", vehicle);
   }
-  
-  postLogo(formData,options): Observable<any>
-  {
-    return this.http.post("http://localhost:51680/api/Vehicles/PostLogo", formData, options)
+
+  putMethodDemo(id,vehicle): Observable<any> {  
+    return this.httpClient.put("http://localhost:51680/api/Vehicles/"+id, vehicle);
   }
+
+  getOneVehicle(id): Observable<any> {
+    return this.httpClient.get('http://localhost:51680/api/Vehicles/GetVehicle?id='+ id);
+  }
+
+  deleteMethodDemo(id): Observable<any> {  
+    return this.httpClient.delete("http://localhost:51680/api/Vehicles/"+id)
+  }
+
+  getSearched(search): Observable<any> {
+    return this.httpClient.get('http://localhost:51680/api/Search/Search?search='+search)  
+  }
+
+  getFilter(search): Observable<any> {
+    return this.httpClient.post("http://localhost:51680/api/Search/Filter", search);
+  }
+
 }

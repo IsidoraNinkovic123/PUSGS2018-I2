@@ -3,11 +3,64 @@
   <div>
       <div id="bran" class="groove">
         <div>
-          <img [src]="branch.Logo" height="50" width="50"/>&nbsp;
+          <img [src]="branch.Logo" height="100" width="120"/>&nbsp;
+          <button [routerLink]="['/updateBranch/'+ Id]" class="btn btn-dark" id="UDBtn" *ngIf="showMA() || UserId==branch.CreatorId">Update</button>
+          <button  class="btn btn-dark"  (click)="delete(branch.Id)" id="UDBtn" *ngIf="showMA() || UserId==branch.CreatorId">Delete</button>
+          <p>
+            <agm-map id="map" [latitude]="branch.MapInfo.centerLat" [longitude]="branch.MapInfo.centerLong" [zoom]="18" (mapClick)="placeMarker($event)">
+                 <agm-marker [latitude]="branch.MapInfo.centerLat" [longitude]="branch.MapInfo.centerLong" [title]="branch.MapInfo.title" [label]="branch.MapInfo.label">
+                   <agm-info-window [latitude]="branch.MapInfo.centerLat" [longitude]="branch.MapInfo.centerLong" >
+                     <span style="font-size: 16px">{{branch.Address}}</span>
+                   </agm-info-window>
+                 </agm-marker>
+            </agm-map>
+        </p>
         </div>
+ 
         <div>Address:  {{branch.Address}}</div>
-        <div>Service:  {{service}}</div>
-        <div>Latitude:  {{branch.Latitude}} &nbsp; &nbsp; &nbsp;  Longitude:  {{branch.Longitude}}</div>
-    </div>  
+        <div>Service:  {{service.Name}}</div>
+    </div> 
+    <h2>Vehicles &nbsp; &nbsp; <button [routerLink]="['/addVehicle/'+ Id]" class="btn btn-dark" *ngIf="showMA()">Add new </button></h2>
+    <div *ngFor="let vehicle of vehicles" id="bran"  class="groove2">
+        <div>
+          <div *ngIf="!vehicle.Unavailable" style="color: green">Available  
+              <button  id="rent" class="btn btn-dark" [routerLink]="['/rent/'+ vehicle.Id + '/'+branch.ServiceId]" *ngIf="!showMA() && !showM() && isActivated()">Rent</button>
+          </div>
+          <div *ngIf="vehicle.Unavailable" style="color:red">Unavailable</div>
+          <div>Type:  {{vehicle.Type.Name}}</div>
+          <div>Model: {{vehicle.Model}}</div>
+          <div>Manufactor:  {{vehicle.Manufactor}} </div>
+          <div>Year:  {{vehicle.Year}}</div>
+          <div>Price per hour:  {{vehicle.PricePerHour}}</div>
+          <div>Description:  {{vehicle.Description}}</div>
+
+          <div id="imgs">
+          <span *ngFor="let i of vehicle.ImgArray" >
+              <img [src]="i" height="150" width="200"/>&nbsp;
+          </span>
+        </div>
+         
+          <button  class="btn btn-dark" [routerLink]="['/updateVehicle/'+ vehicle.Id]" *ngIf="showMA()  || UserId==vehicle.CreatorId">Update</button>&nbsp;&nbsp;
+          <button  class="btn btn-dark" (click)="deleteVehicle(vehicle)" *ngIf="showMA()  || UserId==vehicle.CreatorId">Delete</button>
+          <button id="una" *ngIf="!vehicle.Unavailable && (showMA() || UserId==vehicle.CreatorId)" class="btn btn-dark" (click)="unavailableV(vehicle)">Unavailable</button>
+        </div>
+    </div> 
   </div> 
+  <div class="pagination">
+    <ul>
+        <li>
+            <a (click)="pagination(1)">1</a>
+        </li>
+        <li >
+            <a (click)="pagination(2)">2</a>
+        </li>
+        <li >
+            <a (click)="pagination(3)" >3</a>
+        </li>
+        <li class="last" >
+            <a (click)="pagination(pageNum+1)">Next</a>
+        </li>
+    </ul>
 </div>
+</div>
+

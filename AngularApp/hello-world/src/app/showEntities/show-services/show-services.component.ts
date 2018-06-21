@@ -10,26 +10,42 @@ import { ServiceOperations } from 'src/app/operations/serviceOperations/ServiceO
 })
 export class ShowServicesComponent implements OnInit {
 
+  pageNum:number;
   services: Service[]
   constructor(private addService: ServiceOperations) { }
 
   ngOnInit() {
     this.services = [];
 
-    this.addService.getMethodDemo()
+    this.addService.getPagination(1,5)
     .subscribe(
       data => {
         this.services = data;
-        
+        debugger;
       },
       error => {
         console.log(error);
       })
   }
 
-  //DODATI IZNAD ADD DUGMETA *ngIf="showAddNew()"
-  public showAddNew(): boolean {
-    return localStorage.role == 'Manager';
+  public showMA(): boolean {
+    return localStorage.role == 'Manager' || localStorage.role == 'Admin';
+  }
+  
+  pagination(num)
+  {
+    this.pageNum=num;
+    debugger;
+    this.addService.getPagination(this.pageNum,5)
+    .subscribe(
+      data => {
+        this.services = data;
+        debugger;
+      },
+      error => {
+        console.log(error);
+      })
+
   }
 
 }

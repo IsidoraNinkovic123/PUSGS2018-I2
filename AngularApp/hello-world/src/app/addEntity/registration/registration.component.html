@@ -1,26 +1,38 @@
+
 <div id="content">
-  <h2>Register</h2>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)" class="groove"> 
+  <h2>Profile picture</h2>
+
+  <form #f="ngForm" class="groove"> 
+    
+     <input type="file" name="photo" ng2FileSelect [uploader]="uploader" enctype = "multipart/form-data" />
+     <button type="button" class="btn btn-success btn-s" 
+     (click)="uploader.uploadAll()" 
+     [disabled]="!uploader.getNotUploadedItems().length" >
+         Upload an Image
+   </button>
+ </form>
+
+  <form #f="ngForm" ngNativeValidate (ngSubmit)="onSubmit(f.value, f)" class="groove"> 
     <div class="form-group">
       <div class="col-sm"><label for="FullName">Full name</label></div>
-      <div class="col-sm"><input type="text" name="FullName" ngModel></div>
+      <div class="col-sm"><input type="text" name="FullName" ngModel required></div>
     </div>
     <div class="form-group">
         <div class="col-sm"><label for="Birthday">Birthday</label></div>
-        <div class="col-sm"><input type="date" name="Birthday" ngModel></div>
+        <div class="col-sm"><input type="date" name="Birthday" ngModel required></div>
     </div>
     <div class="form-group">
         <div class="col-sm"><label for="Email">Email</label></div>
-        <div class="col-sm"><input type="email" name="Email" ngModel></div>
+        <div class="col-sm"><input type="email" name="Email" ngModel required></div>
     </div>
     <div class="form-group">
         <div class="col-sm"><label for="Password">Password</label></div>
-        <div class="col-sm"><input type="password" name="Password" ngModel></div>
+        <div class="col-sm"><input type="password" name="Password" ngModel required></div>
     </div>
     <div class="form-group">
         <div class="col-sm"><label for="ConfirmPassword">Confirm password</label></div>
-        <div class="col-sm"><input type="password" name="ConfirmPassword" ngModel></div>
+        <div class="col-sm"><input type="password" name="ConfirmPassword" ngModel required></div>
     </div>
-    <input type="submit"class="btn btn-dark" value="Add">
+    <input type="submit"class="btn btn-dark" value="Register">
   </form>
 </div> 

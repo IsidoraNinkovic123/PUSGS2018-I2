@@ -17,10 +17,11 @@ using RentApp.Models;
 using RentApp.Models.Entities;
 using RentApp.Providers;
 using RentApp.Results;
+using RentApp.Hubs;
 
 namespace RentApp.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -29,6 +30,7 @@ namespace RentApp.Controllers
         public AccountController()
         {
         }
+
 
         public AccountController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
@@ -110,12 +112,12 @@ namespace RentApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Please enter valid old password and repeat correctly new one.");
             }
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -130,7 +132,7 @@ namespace RentApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Please repeat correctly entered password.");
             }
 
             IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
@@ -248,9 +250,9 @@ namespace RentApp.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -268,7 +270,7 @@ namespace RentApp.Controllers
         }
 
 
-     
+
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
         [AllowAnonymous]
         [Route("ExternalLogins")]
@@ -317,12 +319,11 @@ namespace RentApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Please fill out all fields and enter correct values.");
             }
 
-            var user = new RAIdentityUser() { UserName = model.Email, Email = model.Email };
-            var appUser = new AppUser() { FullName = model.FullName, Email = model.Email, Birthday = model.Birthday, Activated = false };
-            user.AppUser = appUser;
+            var appUser = new AppUser() { FullName = model.FullName, Email = model.Email, Birthday = model.Birthday, Activated = false, PersonalDocument = model.PersonalDocument };
+            var user = new RAIdentityUser() { UserName = model.Email, Email = model.Email, AppUser = appUser };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             UserManager.AddToRole(user.Id, "AppUser");
@@ -363,7 +364,7 @@ namespace RentApp.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }

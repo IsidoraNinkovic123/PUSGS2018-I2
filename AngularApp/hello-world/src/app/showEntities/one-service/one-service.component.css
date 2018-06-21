@@ -32,17 +32,89 @@ div.groove {
     background-color: lightsalmon;
     width: 600px;
     padding: 20px;
+    height: 300px;
 }
 
 div.groove2 {
     border-style: groove;
-    border-color: coral;
     background-color:antiquewhite;
     width: 600px;
+    height: 280px;
     padding: 20px;
-    margin-left: 40px;
+    margin-bottom: 30px;
 }
 
 #title{
     font-size: 22px;
+}
+
+#UDBtn{
+    background-color:lightsalmon;
+    margin-right: 10px
+}
+
+#UDBtnS{
+    float: right;
+    background-color:antiquewhite;
+    margin-left: 10px
+}
+
+#UDBtnB{
+    float: left;
+    background-color:antiquewhite;
+}
+
+#txt{
+    height: 150px;
+    width:500px;
+    background-color:antiquewhite;
+}
+
+#date{
+    float: right
+}
+
+#head{
+    background-color:lightsalmon;
+}
+
+.checked {
+    color: antiquewhite;
+}
+
+#star{
+    margin-left: 100px;
+}
+#map{
+    float:right;
+}
+
+.pagination {
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    text-align: center;
+    border-top: 1px dotted #979696;
+    padding-top: 5px; }
+    .pagination ul {
+      margin: 0 auto;
+      display: inline-block; }
+      .pagination ul li {
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #ececec; }
+        .pagination ul li.last {
+          border-right: none; }
+        .pagination ul li a {
+          padding: 0 10px;
+          display: block;
+          color: #f67d34; }
+          .pagination ul li a:hover {
+            text-decoration: underline; }
+
+            
+#map{
+    height: 500px; 
+    width: 500px;
+    margin-right: 300px; 
 }
