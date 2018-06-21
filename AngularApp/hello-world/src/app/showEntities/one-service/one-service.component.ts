@@ -124,6 +124,10 @@ export class OneServiceComponent implements OnInit {
       return localStorage.role == 'Admin';
     }
 
+    public showM(): boolean {
+      return localStorage.role == 'Manager';
+    }
+
   pagination(num)
   {
     this.pageNum=num;
@@ -245,12 +249,12 @@ export class OneServiceComponent implements OnInit {
               }
             },
             error => {
-              console.log(error);
+              alert(error.error.Message);
             })
          }
       },
       error => {
-        console.log(error);
+        alert(error.error.Message);
       })   
   }
 }

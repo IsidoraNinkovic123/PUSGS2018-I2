@@ -52,7 +52,13 @@ namespace RentApp.Controllers
 
             try
             {
-                unitOfWork.AppUsers.Update(appUser);
+                AppUser a = unitOfWork.AppUsers.Get(id);
+                a.Birthday = appUser.Birthday;
+                a.Email = appUser.Email;
+                a.FullName = appUser.FullName;
+                a.PersonalDocument = appUser.PersonalDocument;
+
+                unitOfWork.AppUsers.Update(a);
                 unitOfWork.Complete();
             }
             catch (DbUpdateConcurrencyException)

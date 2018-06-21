@@ -73,10 +73,10 @@ namespace RentApp.Controllers
             {
                 return BadRequest("End date must be smaller then start date.");
             }
-            /*else if(DateTime.Compare((DateTime)rent.End, DateTime.Now) < 0)
+            else if(DateTime.Compare((DateTime)rent.End, DateTime.Now) < 0)
             {
                 return BadRequest("End date is not valid.");
-            }*/
+            }
 
             int count = unitOfWork.Rents.GetAll().Where(r => r.VehicleId == rent.VehicleId && (r.End < rent.Start || rent.End < r.Start)).Count();
             int countV = unitOfWork.Rents.GetAll().Where(r => r.VehicleId == rent.VehicleId).Count();
@@ -130,10 +130,10 @@ namespace RentApp.Controllers
                 {
                     return BadRequest("End date must be smaller then start date.");
                 }
-                /*else if(DateTime.Compare((DateTime)rent.End, DateTime.Now) < 0)
+                else if(DateTime.Compare((DateTime)rent.End, DateTime.Now) < 0)
                 {
                     return BadRequest("End date is not valid.");
-                }*/
+                }
 
                 int count = unitOfWork.Rents.GetAll().Where(r => r.VehicleId == rent.VehicleId && (r.End < rent.Start || rent.End < r.Start)).Count();
                 int countV = unitOfWork.Rents.GetAll().Where(r => r.VehicleId == rent.VehicleId).Count();

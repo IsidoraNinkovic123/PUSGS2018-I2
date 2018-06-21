@@ -14,7 +14,7 @@
           <div>
             <img [src]="service.Logo" height="100" width="120"/>&nbsp;
             <span id="title">{{service.Name}}</span>
-            <span id="star" *ngIf="!showMA()">
+            <span id="star" *ngIf="!showMA() && !showM()">
                 <span class="fa fa-star" (click)="starClick(1)" [ngClass]="{checked: isOn[0]}"></span>
                 <span class="fa fa-star" (click)="starClick(2)" [ngClass]="{checked: isOn[1]}"></span>
                 <span class="fa fa-star" (click)="starClick(3)" [ngClass]="{checked: isOn[2]}"></span>
@@ -35,7 +35,7 @@
     <h1><br/></h1>
 
     <h2>Comments</h2>
-    <div *ngIf="!showMA()">
+    <div *ngIf="!showMA() && !showM()">
         <textarea id="txt" [(ngModel)]="newComm.Text"></textarea><br/>
         <button (click)="addComment()" class="btn btn-dark" >Add</button><h1><br/></h1>
     </div>
